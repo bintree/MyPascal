@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{02912B37-4C01-436A-964A-47C9E0A7010A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>MyPascal</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <SourcePath>C:\Users\Valya\Documents\study\MyPascal\generated;generated;$(SourcePath)</SourcePath>
+    <IncludePath>generated;syntax_tree;C:\Users\Valya\Documents\study\MyPascal\syntax_tree;C:\Users\Valya\Documents\study\MyPascal\generated;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;YY_NO_UNISTD_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="generated\location.hh" />
+    <None Include="generated\Makefile" />
+    <None Include="generated\parser.yy" />
+    <None Include="generated\position.hh" />
+    <None Include="generated\scanner.ll" />
+    <None Include="generated\stack.hh" />
+    <None Include="ReadMe.txt" />
+    <None Include="test.pas" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="context.h" />
+    <ClInclude Include="generated\FlexLexer.h" />
+    <ClInclude Include="generated\parser.h" />
+    <ClInclude Include="generated\scanner.h" />
+    <ClInclude Include="semantical_visitor.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="syntax_tree\abstract_node.h" />
+    <ClInclude Include="syntax_tree\array_type.h" />
+    <ClInclude Include="syntax_tree\assignment_statement.h" />
+    <ClInclude Include="syntax_tree\binary_operator.h" />
+    <ClInclude Include="syntax_tree\block.h" />
+    <ClInclude Include="syntax_tree\collection_type.h" />
+    <ClInclude Include="syntax_tree\compound_statement.h" />
+    <ClInclude Include="syntax_tree\formal_parameter_section.h" />
+    <ClInclude Include="syntax_tree\for_statement.h" />
+    <ClInclude Include="syntax_tree\function_declaration.h" />
+    <ClInclude Include="syntax_tree\function_designator.h" />
+    <ClInclude Include="syntax_tree\if_statement.h" />
+    <ClInclude Include="syntax_tree\indexed_variable.h" />
+    <ClInclude Include="syntax_tree\procedure_declaration.h" />
+    <ClInclude Include="syntax_tree\procedure_statement.h" />
+    <ClInclude Include="syntax_tree\program.h" />
+    <ClInclude Include="syntax_tree\subrange_type.h" />
+    <ClInclude Include="syntax_tree\syntax_tree.h" />
+    <ClInclude Include="syntax_tree\terminal.h" />
+    <ClInclude Include="syntax_tree\unary_operator.h" />
+    <ClInclude Include="syntax_tree\variable.h" />
+    <ClInclude Include="syntax_tree\variable_declaration.h" />
+    <ClInclude Include="syntax_tree\visitor.h" />
+    <ClInclude Include="syntax_tree\while_statement.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="type\array.h" />
+    <ClInclude Include="type\hash_map_type.h" />
+    <ClInclude Include="type\simple_type.h" />
+    <ClInclude Include="type\type.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="context.cpp" />
+    <ClCompile Include="generated\parser.cc" />
+    <ClCompile Include="generated\scanner.cc" />
+    <ClCompile Include="MyPascal.cpp" />
+    <ClCompile Include="semantical_visitor.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="syntax_tree\abstract_node.cpp" />
+    <ClCompile Include="syntax_tree\array_type.cpp" />
+    <ClCompile Include="syntax_tree\assignment_statement.cpp" />
+    <ClCompile Include="syntax_tree\binary_operator.cpp" />
+    <ClCompile Include="syntax_tree\block.cpp" />
+    <ClCompile Include="syntax_tree\collection_type.cpp" />
+    <ClCompile Include="syntax_tree\compound_statement.cpp" />
+    <ClCompile Include="syntax_tree\formal_parameter_section.cpp" />
+    <ClCompile Include="syntax_tree\for_statement.cpp" />
+    <ClCompile Include="syntax_tree\function_declaration.cpp" />
+    <ClCompile Include="syntax_tree\function_designator.cpp" />
+    <ClCompile Include="syntax_tree\if_statement.cpp" />
+    <ClCompile Include="syntax_tree\indexed_variable.cpp" />
+    <ClCompile Include="syntax_tree\procedure_declaration.cpp" />
+    <ClCompile Include="syntax_tree\procedure_statement.cpp" />
+    <ClCompile Include="syntax_tree\program.cpp" />
+    <ClCompile Include="syntax_tree\subrange_type.cpp" />
+    <ClCompile Include="syntax_tree\terminal.cpp" />
+    <ClCompile Include="syntax_tree\unary_operator.cpp" />
+    <ClCompile Include="syntax_tree\variable.cpp" />
+    <ClCompile Include="syntax_tree\variable_declaration.cpp" />
+    <ClCompile Include="syntax_tree\while_statement.cpp" />
+    <ClCompile Include="type\array.cpp" />
+    <ClCompile Include="type\hash_map_type.cpp" />
+    <ClCompile Include="type\simple_type.cpp" />
+    <ClCompile Include="type\type.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

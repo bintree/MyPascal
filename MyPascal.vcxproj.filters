@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Файлы исходного кода">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Заголовочные файлы">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Заголовочные файлы\generated">
+      <UniqueIdentifier>{ed2af969-626d-46d6-bc50-7e42fce1ecbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\generated">
+      <UniqueIdentifier>{ca918864-c960-4c0b-baa0-c0cebb628e70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Заголовочные файлы\syntax_tree">
+      <UniqueIdentifier>{f5b9c04e-8fcc-48b2-91f0-d1014c5aef9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\syntax_tree">
+      <UniqueIdentifier>{2ad86e68-4048-4f15-bb29-febf138fa2a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\type">
+      <UniqueIdentifier>{0c1841fb-9c0c-49bd-acad-f35eb72bdac1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Заголовочные файлы\type">
+      <UniqueIdentifier>{a516c8d1-8748-4e9b-a517-764018380a11}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="generated\parser.yy" />
+    <None Include="generated\scanner.ll" />
+    <None Include="generated\Makefile">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="test.pas">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="generated\location.hh">
+      <Filter>Заголовочные файлы\generated</Filter>
+    </None>
+    <None Include="generated\position.hh">
+      <Filter>Заголовочные файлы\generated</Filter>
+    </None>
+    <None Include="generated\stack.hh">
+      <Filter>Заголовочные файлы\generated</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="generated\FlexLexer.h">
+      <Filter>Заголовочные файлы\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="generated\parser.h">
+      <Filter>Заголовочные файлы\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="generated\scanner.h">
+      <Filter>Заголовочные файлы\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Заголовочные файлы\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Заголовочные файлы\generated</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\abstract_node.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\array_type.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\assignment_statement.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\binary_operator.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\block.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\collection_type.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\compound_statement.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\for_statement.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\formal_parameter_section.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\function_declaration.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\function_designator.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\if_statement.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\indexed_variable.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\procedure_declaration.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\procedure_statement.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\program.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\subrange_type.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\terminal.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\unary_operator.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\variable_declaration.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\while_statement.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\syntax_tree.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\visitor.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+    <ClInclude Include="context.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="type\hash_map_type.h">
+      <Filter>Заголовочные файлы\type</Filter>
+    </ClInclude>
+    <ClInclude Include="type\simple_type.h">
+      <Filter>Заголовочные файлы\type</Filter>
+    </ClInclude>
+    <ClInclude Include="type\type.h">
+      <Filter>Заголовочные файлы\type</Filter>
+    </ClInclude>
+    <ClInclude Include="semantical_visitor.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="type\array.h">
+      <Filter>Заголовочные файлы\type</Filter>
+    </ClInclude>
+    <ClInclude Include="syntax_tree\variable.h">
+      <Filter>Заголовочные файлы\syntax_tree</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="MyPascal.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\parser.cc">
+      <Filter>Файлы исходного кода\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="generated\scanner.cc">
+      <Filter>Файлы исходного кода\generated</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\abstract_node.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\array_type.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\assignment_statement.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\binary_operator.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\block.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\collection_type.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\compound_statement.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\for_statement.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\formal_parameter_section.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\function_declaration.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\function_designator.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\if_statement.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\indexed_variable.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\procedure_declaration.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\procedure_statement.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\program.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\subrange_type.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\terminal.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\unary_operator.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\variable_declaration.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\while_statement.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="type\hash_map_type.cpp">
+      <Filter>Файлы исходного кода\type</Filter>
+    </ClCompile>
+    <ClCompile Include="type\simple_type.cpp">
+      <Filter>Файлы исходного кода\type</Filter>
+    </ClCompile>
+    <ClCompile Include="type\type.cpp">
+      <Filter>Файлы исходного кода\type</Filter>
+    </ClCompile>
+    <ClCompile Include="context.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="semantical_visitor.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="type\array.cpp">
+      <Filter>Файлы исходного кода\type</Filter>
+    </ClCompile>
+    <ClCompile Include="syntax_tree\variable.cpp">
+      <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
