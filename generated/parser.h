@@ -182,7 +182,8 @@ namespace generated {
      IDENT = 301,
      STRING_LITERAL = 302,
      INTEGER_LITERAL = 303,
-     DOUBLE_LITERAL = 304
+     DOUBLE_LITERAL = 304,
+     UMINUS = 305
    };
 
     };
@@ -358,7 +359,7 @@ namespace generated {
 } // generated
 
 /* Line 34 of lalr1.cc  */
-#line 362 "parser.h"
+#line 363 "parser.h"
 
 
 

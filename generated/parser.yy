@@ -27,7 +27,7 @@
 #define yylex lexer.lex
 #define BEGIN_POSITION(a) std::make_pair(a.begin.line,a.begin.column)
 #define END_POSITION(a) std::make_pair(a.end.line, a.end.column)
-#define MAKE_TERMINAL_NODE(A, B) new syntax_tree::Terminal(A,syntax_tree::OTHER,BEGIN_POSITION(B),END_POSITION(B))
+#define MAKE_TERMINAL_NODE(A, B) new syntax_tree::Terminal((A),syntax_tree::OTHER,BEGIN_POSITION(B),END_POSITION(B))
 #define NEW_NODE_VECTOR new std::vector< syntax_tree::AbstractNode* >()
 %}
 
@@ -58,6 +58,11 @@
 }
 
 %left ELSE 
+%left EQUALS NOTEQUAL LESS LESSOREQUAL MORE MOREOREQUAL OR
+%left NOT
+%left PLUS MINUS
+%left DIV MULTIPLY DIVIDE MOD AND
+%left UMINUS
 
 %type <an> program
 %type <an> block
@@ -83,12 +88,6 @@
 %type <an> else_expression
 %type <vn> actual_parameter_list
 %type <an> expression
-%type <an> simple_expression
-%type <an> term
-%type <an> factor
-%type <an> relational_operator
-%type <an> addition_operator
-%type <an> multiplication_operator
 %type <an> variable
 %type <an> indexed_variable
 %type <an> function_designator
@@ -101,7 +100,6 @@
 %type <vn> identifier_list
 %type <vn> expression_list
 %type <an> number
-%type <an> sign
 %type <an> ident_terminal
 
 %%
@@ -218,51 +216,27 @@ actual_parameter_list :
 ;
 
 expression :
-sign simple_expression { $$=new syntax_tree::UnaryOperator(BEGIN_POSITION(@1),$1,$2,END_POSITION(@2)); }
-| simple_expression { $$=$1; }
-| simple_expression relational_operator simple_expression { $$=new syntax_tree::BinaryOperator(BEGIN_POSITION(@1),$1,$2,$3,END_POSITION(@3)); }
-;
-
-simple_expression :
-term { $$=$1; }
-| term addition_operator simple_expression { $$=new syntax_tree::BinaryOperator(BEGIN_POSITION(@1),$1,$2,$3,END_POSITION(@3)); } /*верный ли экшн? нормально ли что терм - симплэкспершн в конструкторе?*/
-;
-
-term :
-factor { $$=$1; }
-| factor multiplication_operator term { $$=new syntax_tree::BinaryOperator(BEGIN_POSITION(@1),$1,$2,$3,END_POSITION(@3)); }
-;
-
-factor :
-variable { $$=$1; }
+MINUS expression %prec UMINUS { $$=new syntax_tree::UnaryOperator(BEGIN_POSITION(@1),MAKE_TERMINAL_NODE("-", @1), $2,END_POSITION(@2)); }
+| expression AND expression { $$=new syntax_tree::BinaryOperator(BEGIN_POSITION(@1),$1,MAKE_TERMINAL_NODE("&&", @2),$3,END_POSITION(@3)); } 
+| expression MOD expression { $$=new syntax_tree::BinaryOperator(BEGIN_POSITION(@1),$1,MAKE_TERMINAL_NODE("mod", @2),$3,END_POSITION(@3)); } 
+| expression DIV expression { $$=new syntax_tree::BinaryOperator(BEGIN_POSITION(@1),$1,MAKE_TERMINAL_NODE("div", @2),$3,END_POSITION(@3)); } 
+| expression DIVIDE expression { $$=new syntax_tree::BinaryOperator(BEGIN_POSITION(@1),$1,MAKE_TERMINAL_NODE("/", @2),$3,END_POSITION(@3)); } 
+| expression MULTIPLY expression { $$=new syntax_tree::BinaryOperator(BEGIN_POSITION(@1),$1,MAKE_TERMINAL_NODE("*", @2),$3,END_POSITION(@3)); } 
+| expression PLUS expression {  $$=new syntax_tree::BinaryOperator(BEGIN_POSITION(@1),$1,MAKE_TERMINAL_NODE("+", @2),$3,END_POSITION(@3)); } 
+| expression MINUS expression { $$=new syntax_tree::BinaryOperator(BEGIN_POSITION(@1),$1,MAKE_TERMINAL_NODE("-", @2),$3,END_POSITION(@3)); } 
+| expression OR expression { $$=new syntax_tree::BinaryOperator(BEGIN_POSITION(@1),$1,MAKE_TERMINAL_NODE("||", @2),$3,END_POSITION(@3)); } 
+| expression MOREOREQUAL expression { $$=new syntax_tree::BinaryOperator(BEGIN_POSITION(@1),$1,MAKE_TERMINAL_NODE(">=", @2),$3,END_POSITION(@3)); } 
+| expression MORE expression { $$=new syntax_tree::BinaryOperator(BEGIN_POSITION(@1),$1,MAKE_TERMINAL_NODE(">", @2),$3,END_POSITION(@3)); } 
+| expression LESSOREQUAL expression { $$=new syntax_tree::BinaryOperator(BEGIN_POSITION(@1),$1,MAKE_TERMINAL_NODE("<=", @2),$3,END_POSITION(@3)); } 
+| expression LESS expression { $$=new syntax_tree::BinaryOperator(BEGIN_POSITION(@1),$1,MAKE_TERMINAL_NODE("<", @2),$3,END_POSITION(@3)); } 
+| expression NOTEQUAL expression { $$=new syntax_tree::BinaryOperator(BEGIN_POSITION(@1),$1,MAKE_TERMINAL_NODE("!=", @2),$3,END_POSITION(@3)); } 
+| expression EQUALS expression { $$=new syntax_tree::BinaryOperator(BEGIN_POSITION(@1),$1,MAKE_TERMINAL_NODE("==", @2),$3,END_POSITION(@3)); } 
+| variable { $$=$1; }
 | number { $$=$1; }
 | STRING_LITERAL { $$=new syntax_tree::Terminal($1,syntax_tree::STRING_LITERAL,BEGIN_POSITION(@1),END_POSITION(@1)); }
 | function_designator { $$=$1; }
 | LEFTPAR expression RIGHTPAR { $$=$2; }
-| NOT factor { $$=new syntax_tree::UnaryOperator(BEGIN_POSITION(@1),MAKE_TERMINAL_NODE($1, @1),$2,END_POSITION(@2)); }
-;
-
-relational_operator :
-EQUALS { $$=MAKE_TERMINAL_NODE($1, @1); }
-| NOTEQUAL { $$=MAKE_TERMINAL_NODE($1, @1); }
-| LESS { $$=MAKE_TERMINAL_NODE($1, @1); }
-| LESSOREQUAL { $$=MAKE_TERMINAL_NODE($1, @1); }
-| MORE { $$=MAKE_TERMINAL_NODE($1, @1); }
-| MOREOREQUAL { $$=MAKE_TERMINAL_NODE($1, @1); }
-;
-
-addition_operator :
-PLUS { $$=MAKE_TERMINAL_NODE($1, @1); }
-| MINUS { $$=MAKE_TERMINAL_NODE($1, @1);}
-| OR { $$=MAKE_TERMINAL_NODE($1, @1); }
-;
-
-multiplication_operator :
-MULTIPLY { $$=MAKE_TERMINAL_NODE($1, @1); }
-| DIVIDE { $$=MAKE_TERMINAL_NODE($1, @1); }
-| DIV { $$=MAKE_TERMINAL_NODE($1, @1); }
-| MOD { $$=MAKE_TERMINAL_NODE($1, @1); }
-| AND { $$=MAKE_TERMINAL_NODE($1, @1); }
+| NOT expression { $$=new syntax_tree::UnaryOperator(BEGIN_POSITION(@1),MAKE_TERMINAL_NODE("not", @1),$2,END_POSITION(@2)); }
 ;
 
 variable :
@@ -324,11 +298,6 @@ expression { $$=NEW_NODE_VECTOR; $$->push_back($1); }
 number :
 INTEGER_LITERAL { $$ = new syntax_tree::Terminal($1,syntax_tree::INTEGER_LITERAL,BEGIN_POSITION(@1),END_POSITION(@1)); }
 | DOUBLE_LITERAL { $$ = new syntax_tree::Terminal($1,syntax_tree::DOUBLE_LITERAL,BEGIN_POSITION(@1),END_POSITION(@1)); }
-;
-
-sign :
-PLUS { $$ = MAKE_TERMINAL_NODE($1, @1); }
-| MINUS { $$ = MAKE_TERMINAL_NODE($1, @1); }
 ;
 
 ident_terminal :
