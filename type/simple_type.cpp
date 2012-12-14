@@ -1,5 +1,6 @@
 #include "simple_type.h"
 #include "type.h"
+#include "type_visitor.h"
 
 Type** simpleTypes;
 std::map< std::string, int > *mapOfSimpleTypes=NULL;
@@ -89,4 +90,8 @@ Type* SimpleType::getTypeAfterUnaryOperation(std::string op) {
 	}
 
 	return NULL;
+}
+
+void SimpleType::accept(TypeVisitor* visitor) {
+	visitor->visit(this);
 }

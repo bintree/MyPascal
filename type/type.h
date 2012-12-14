@@ -7,6 +7,7 @@
 class Type {
 public:
 	virtual std::string getId() const = 0;
+	virtual void accept(class TypeVisitor* visitor) = 0;
 	virtual Type* getTypeAfterArrayDereferencing(Type *type);
 	virtual Type* getTypeAfterBinaryOperation(std::string op);
 	virtual Type* getTypeAfterUnaryOperation(std::string op);

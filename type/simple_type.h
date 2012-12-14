@@ -25,6 +25,7 @@ public:
 	virtual Type* getTypeAfterBinaryOperation(std::string op);
 	virtual Type* getTypeAfterUnaryOperation(std::string op);
 	virtual std::string getId() const;
+	virtual void accept(class TypeVisitor* visitor);
 };
 
 #endif

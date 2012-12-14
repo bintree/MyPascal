@@ -13,6 +13,7 @@ public:
 	virtual std::string getId() const;
 	Type* getKeyType();
 	Type* getValueType();
+	virtual void accept(class TypeVisitor* visitor);
 };
 
 #endif

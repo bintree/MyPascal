@@ -15,6 +15,7 @@ public:
 	int getFrom();
 	int getTo();
 	Type *getOfType();
+	virtual void accept(class TypeVisitor* visitor);
 };
 
 #endif

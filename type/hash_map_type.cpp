@@ -1,4 +1,5 @@
 #include "hash_map_type.h"
+#include "type_visitor.h"
 
 HashMapType::HashMapType(Type* _keyType, Type* _valueType) {
 	keyType = _keyType;
@@ -20,4 +21,8 @@ Type* HashMapType::getTypeAfterArrayDereferencing(Type* type) {
 		return valueType;
 	}
 	return NULL;
+}
+
+void HashMapType::accept(TypeVisitor* visitor) {
+	visitor->visit(this);
 }

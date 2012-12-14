@@ -1,5 +1,6 @@
 #include "array.h"
 #include "simple_type.h"
+#include "type_visitor.h"
 
 	Array::Array(int _from,int _to, Type* _ofType) {
 		from = _from;
@@ -25,4 +26,8 @@ Type* Array::getTypeAfterArrayDereferencing(Type* type) {
 		return ofType;
 	}
 	return NULL;
+}
+
+void Array::accept(TypeVisitor* visitor) {
+	visitor->visit(this);
 }
