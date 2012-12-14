@@ -26,6 +26,8 @@ private:
 	std::vector< Type* >* varsTypes;
 
 	std::vector< std::string >* errors;
+
+	std::vector< std::pair< std::string, Type* > >* allVars;
 	
 	void init();
 
@@ -47,6 +49,8 @@ public:
 	Type* getReturnTypeOfFunction(std::string &name);
 	Type* getVariableType(std::string &name, std::pair< int, int > &identPosition);
 	Type* getVariableType(std::string &name);
+
+	std::vector< std::pair< std::string, Type* > > getAllVariables();
 
 	void addError(std::string msg, std::pair< int, int > &pos);
 	bool hasErrors();

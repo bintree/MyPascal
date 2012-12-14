@@ -40,6 +40,8 @@ void Context::init() {
 	varsNames = new std::vector< std::string >();
 	varsTypes = new std::vector< Type* >();
 
+	allVars = new std::vector< std::pair< std::string, Type* > >();
+
 	errors = new std::vector< std::string >();
 }
 
@@ -157,6 +159,9 @@ bool Context::addVariable(std::string name, Type *type) {
 	if (addItemIfNotExists(varsMap, name)) {
 		varsNames->push_back(name);
 		varsTypes->push_back(type);
+
+		allVars->push_back(std::make_pair(name, type));
+
 		return true;
 	}
 	return false;
@@ -222,4 +227,8 @@ Context* Context::getFunctionContext(int id) {
 }
 syntax_tree::AbstractNode* Context::getFunctionStatement(int id) {
 	return functionsStatements->at(id);
+}
+
+std::vector< std::pair< std::string, Type* > > Context::getAllVariables() {
+	return *allVars;
 }
