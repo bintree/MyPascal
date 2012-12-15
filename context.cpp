@@ -1,4 +1,5 @@
 #include "context.h"
+#include "type/simple_type.h"
 
 #include <iostream>
 
@@ -28,6 +29,10 @@ Context::Context(Context *_parent)  {
 	parentContext = _parent;
 }
 
+int Context::getFunctionIdByName(std::string &name) {
+	return functionsMap->find(name)->second;
+}
+
 void Context::init() {
 	functionsMap = new std::map< std::string, int >();
 	functionsNames = new std::vector< std::string >();
@@ -35,6 +40,14 @@ void Context::init() {
 	functionsArgs = new std::vector< std::vector< Type* > >();
 	functionsStatements = new std::vector< syntax_tree::AbstractNode* >();
 	functionsContexts = new std::vector< Context* >();
+
+	std::string types[] = { "integer", "double", "string" };
+
+	for (int i = 0; i < 3; i++) {
+		Type *type = getTypeByName(types[i]);
+		addFunction("println_" + types[i], getTypeBySimpleTypeId(VOID_SIMPLE_TYPE), std::vector< Type* >(), NULL, NULL, std::make_pair(0,0));
+		addFunction("next_" + types[i], type, std::vector< Type* >(), NULL, NULL, std::make_pair(0,0));
+	}
 
 	varsMap = new std::map< std::string, int >();
 	varsNames = new std::vector< std::string >();

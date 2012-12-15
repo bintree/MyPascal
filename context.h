@@ -47,6 +47,7 @@ public:
 
 	Type* getReturnTypeOfFunction(std::string &name, std::pair< int, int > &identPosition);
 	Type* getReturnTypeOfFunction(std::string &name);
+	int getFunctionIdByName(std::string &name);
 	Type* getVariableType(std::string &name, std::pair< int, int > &identPosition);
 	Type* getVariableType(std::string &name);
 
