@@ -67,6 +67,7 @@ void SemanticalVisitor::visit(syntax_tree::Program *node) {
 
 	Context *global = context;
 	for (int i = 0; i < global->getFunctionsAmount(); i++) {
+		if (global->getFunctionStatement(i) == NULL)continue;
 		context = global->getFunctionContext(i);
 		global->getFunctionStatement(i)->accept(this);
 	}
