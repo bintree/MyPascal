@@ -45,7 +45,9 @@ void Context::init() {
 
 	for (int i = 0; i < 3; i++) {
 		Type *type = getTypeByName(types[i]);
-		addFunction("println_" + types[i], getTypeBySimpleTypeId(VOID_SIMPLE_TYPE), std::vector< Type* >(), NULL, NULL, std::make_pair(0,0));
+		std::vector< Type* > printArg;
+		printArg.push_back(type);
+		addFunction("println_" + types[i], getTypeBySimpleTypeId(VOID_SIMPLE_TYPE), printArg, NULL, NULL, std::make_pair(0,0));
 		addFunction("next_" + types[i], type, std::vector< Type* >(), NULL, NULL, std::make_pair(0,0));
 	}
 
@@ -227,8 +229,9 @@ void Context::print() {
 		std::cout << ")";
 
 		std::cout<< std::endl; 
-
-		functionsContexts->at(i)->print();
+		if (functionsContexts->at(i) != NULL) {
+			functionsContexts->at(i)->print();
+		}
 	}
 }
 
