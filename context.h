@@ -60,6 +60,8 @@ public:
 	int getFunctionsAmount();
 	Context* getFunctionContext(int id);
 	syntax_tree::AbstractNode* getFunctionStatement(int id);
+	bool isGlobal();
+	bool hasLocalVariable(std::string name);
 };
 
 #endif CLASS_H_CONTEXT 

@@ -248,3 +248,11 @@ syntax_tree::AbstractNode* Context::getFunctionStatement(int id) {
 std::vector< std::pair< std::string, Type* > > Context::getAllVariables() {
 	return *allVars;
 }
+
+bool Context::isGlobal() {
+	return parentContext == NULL;
+}
+
+bool Context::hasLocalVariable(std::string name) {
+	return varsMap->count(name) > 0;
+}
