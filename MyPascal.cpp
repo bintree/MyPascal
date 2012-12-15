@@ -12,6 +12,7 @@
 #include "syntax_tree/abstract_node.h"
 #include "semantical_visitor.h"
 #include "context.h"
+#include "jasmin_visitor.h"
 
 #include "type/type.h"
 
@@ -77,6 +78,21 @@ int main(int argc, char* argv[])
 		types = visitor.expressionTypes;
 
 		print_tree(root, "");
+
+		JasminVisitor jasminGenerator;
+
+		std::string jasminFilename = string(argv[1])+".j";
+		std::ofstream jasminOutput(jasminFilename);
+
+		jasminGenerator.generateJasminCode(global, root, argv[1], "Main", visitor.expressionTypes, jasminOutput);
+		
+		char cmd[1000];
+
+		sprintf(cmd, "java -jar jasmin.jar %s", jasminFilename.c_str());
+
+		system(cmd);
+
+		system("java Main");
 	}
 	return 0;
 }
