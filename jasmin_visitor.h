@@ -11,7 +11,7 @@ const int DEFAULT_STACK_LIMIT = 100;
 
 class JasminVisitor : public syntax_tree::Visitor {
 	private:
-		Context* globalContext, currentContext;
+		Context* currentContext;
 		std::map< std::string, int > localsVariablesMap;
 		std::string className;
 		std::vector< std::pair< std::string, int > > instructions; 
@@ -26,6 +26,7 @@ class JasminVisitor : public syntax_tree::Visitor {
 		Type* getTypeOfExpression(syntax_tree::AbstractNode *node);
 
 		bool waitingForLabeledInstruction;
+		syntax_tree::AbstractNode* assignExpression;
 		void clearInstructions();
 		void addInstruction(std::string instructionText);
 		void addNewInstruction(std::string className);

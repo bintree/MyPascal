@@ -110,9 +110,10 @@ void JasminVisitor::generateJasminCode(Context *global, syntax_tree::AbstractNod
 	this->out = &out;
 	this->expressionTypes = expressionTypes;
 	this->className = className;
-	globalContext = global;
+	currentContext = global;
 	labelCounter = 0;
 	waitingForLabeledInstruction = false;
+	assignExpression = NULL;
 	printLineToOStream(".source " + sourceFilename, out);
 	printLineToOStream(".class public " + className, out);
 	printLineToOStream(".super java/lang/Object", out);
@@ -120,7 +121,7 @@ void JasminVisitor::generateJasminCode(Context *global, syntax_tree::AbstractNod
 	std::vector< std::pair< std::string, Type* > > allVars = global->getAllVariables();
 	
 	for (int i = 0; i < allVars.size(); i++) {
-		printLineToOStream(".field public static " + allVars[i].first + jvmTypeVisitor->determineJVMType(allVars[i].second) , out);
+		printLineToOStream(".field public static " + allVars[i].first + " " + jvmTypeVisitor->determineJVMType(allVars[i].second) , out);
 	}
 
 	//отсюда мы будем читать
@@ -171,6 +172,28 @@ void JasminVisitor::printInstructions() {
 
 void JasminVisitor::visit(syntax_tree::Terminal *node) {
 	currentValue = new std::string(node->getValue());
+	
+	char *cmd = NULL;
+
+	switch(node->getTokenType()) {
+		case syntax_tree::INTEGER_LITERAL:
+			cmd = "ldc %s";
+			break;
+		case syntax_tree::DOUBLE_LITERAL:
+			cmd = "ldc2_w %s";
+			break;
+		case syntax_tree::STRING_LITERAL:
+			cmd = "ldc \"%s\"";
+			break;
+		default:
+			break;
+	}
+
+	if (cmd != NULL) {
+		char *buf = new char[currentValue->length() + strlen(cmd)];
+		sprintf(buf, cmd, currentValue->c_str());
+		addInstruction(buf);
+	}
 }
 
 void JasminVisitor::visit(syntax_tree::Program *node) { 
@@ -190,9 +213,9 @@ void JasminVisitor::putExpressionsToStack(std::vector< syntax_tree::AbstractNode
 void JasminVisitor::methodInvokation(syntax_tree::AbstractNode *identNode, std::vector< syntax_tree::AbstractNode* >* argsExpressions) {
 	std::string name = determineValue(identNode);
 
-	int funcId = globalContext->getFunctionIdByName(name);
+	int funcId = currentContext->getFunctionIdByName(name);
 
-	if (globalContext->getFunctionStatement(funcId) == NULL) {
+	if (currentContext->getFunctionStatement(funcId) == NULL) {
 		//стандартные функции ввода/вывода
 
 		if (name.find("println") == 0) {
@@ -260,10 +283,28 @@ void JasminVisitor::visit(syntax_tree::CompoundStatement *node) {
 	}
 }
 void JasminVisitor::visit(syntax_tree::AssignmentStatement *node) {
-
+	assignExpression = node->getExpression();
+	node->getVariable()->accept(this);
 }
 
 void JasminVisitor::visit(syntax_tree::Variable *node) {
+	syntax_tree::AbstractNode* exprToAssingn = assignExpression;
+	assignExpression =  NULL;
+	std::string name = determineValue(node->getValue());
+	bool isLocal = (!currentContext->isGlobal()) && currentContext->hasLocalVariable(name);
+
+	Type* varType = currentContext->getVariableType(name);
+
+	if (exprToAssingn != NULL) {
+		exprToAssingn->accept(this);
+		if (!isLocal) {
+			addPutFieldInstruction(className, name, jvmTypeVisitor->determineJVMType(varType));
+		}
+	} else {
+		if (!isLocal) {
+			addGetFieldInstruction(className, name, jvmTypeVisitor->determineJVMType(varType));
+		}
+	}
 }
 
 void JasminVisitor::visit(syntax_tree::IndexedVariable *node) {
