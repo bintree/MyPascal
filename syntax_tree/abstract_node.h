@@ -7,6 +7,9 @@
 #ifndef CLASS_H_ABSTRACT_NODE
 #define CLASS_H_ABSTRACT_NODE
 
+#define VECTOR_NODE_ITERATOR std::vector< syntax_tree::AbstractNode* >::iterator
+#define ITERATE(it, a) for (VECTOR_NODE_ITERATOR it = a->begin(); it != a->end(); it++)
+
 namespace syntax_tree {
 	enum token_type {
 		STRING_LITERAL,

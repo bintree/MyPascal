@@ -6,10 +6,6 @@
 #include "type/array.h"
 #include "type/hash_map_type.h"
 
-#define VECTOR_NODE_ITERATOR std::vector< syntax_tree::AbstractNode* >::iterator
-#define ITERATE(it, a) for (VECTOR_NODE_ITERATOR it = a->begin(); it != a->end(); it++)
-
-
 int convertToInt(std::string s) {
 	std::stringstream ss(s);
 	int ans;
