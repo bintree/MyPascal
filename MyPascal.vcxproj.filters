@@ -31,6 +31,12 @@
     <Filter Include="Заголовочные файлы\type">
       <UniqueIdentifier>{a516c8d1-8748-4e9b-a517-764018380a11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Заголовочные файлы\jvm_type">
+      <UniqueIdentifier>{5d172475-0755-4592-955c-b2042d429e25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\jvm_type">
+      <UniqueIdentifier>{6030a01e-ee73-464d-b4f0-f2a978a57516}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -158,6 +164,15 @@
     <ClInclude Include="syntax_tree\variable.h">
       <Filter>Заголовочные файлы\syntax_tree</Filter>
     </ClInclude>
+    <ClInclude Include="jasmin_visitor.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="type\type_visitor.h">
+      <Filter>Заголовочные файлы\type</Filter>
+    </ClInclude>
+    <ClInclude Include="jvm_type\jvm_type_visitor.h">
+      <Filter>Заголовочные файлы\jvm_type</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -255,6 +270,12 @@
     </ClCompile>
     <ClCompile Include="syntax_tree\variable.cpp">
       <Filter>Файлы исходного кода\syntax_tree</Filter>
+    </ClCompile>
+    <ClCompile Include="jasmin_visitor.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="jvm_type\jvm_type_visitor.cpp">
+      <Filter>Файлы исходного кода\jvm_type</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

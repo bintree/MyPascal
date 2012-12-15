@@ -40,7 +40,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <SourcePath>C:\Users\Valya\Documents\study\MyPascal\generated;generated;$(SourcePath)</SourcePath>
-    <IncludePath>generated;syntax_tree;C:\Users\Valya\Documents\study\MyPascal\syntax_tree;C:\Users\Valya\Documents\study\MyPascal\generated;$(IncludePath)</IncludePath>
+    <IncludePath>jvm_type;generated;syntax_tree;type;$(IncludePath)</IncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -92,6 +92,8 @@
     <ClInclude Include="generated\FlexLexer.h" />
     <ClInclude Include="generated\parser.h" />
     <ClInclude Include="generated\scanner.h" />
+    <ClInclude Include="jasmin_visitor.h" />
+    <ClInclude Include="jvm_type\jvm_type_visitor.h" />
     <ClInclude Include="semantical_visitor.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="syntax_tree\abstract_node.h" />
@@ -123,11 +125,14 @@
     <ClInclude Include="type\hash_map_type.h" />
     <ClInclude Include="type\simple_type.h" />
     <ClInclude Include="type\type.h" />
+    <ClInclude Include="type\type_visitor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="context.cpp" />
     <ClCompile Include="generated\parser.cc" />
     <ClCompile Include="generated\scanner.cc" />
+    <ClCompile Include="jasmin_visitor.cpp" />
+    <ClCompile Include="jvm_type\jvm_type_visitor.cpp" />
     <ClCompile Include="MyPascal.cpp" />
     <ClCompile Include="semantical_visitor.cpp" />
     <ClCompile Include="stdafx.cpp" />
