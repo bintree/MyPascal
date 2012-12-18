@@ -47,9 +47,15 @@ void JasminVisitor::addNewInstruction(std::string className) {
 	addInstruction("new " + className);	
 }
 
-void JasminVisitor::addInvokation(std::string invokationType, std::string className, std::string method, std::string argsTypes[], int argc, std::string returnType) {
-	addInstruction("invoke" + invokationType + " " + className + "/" + method + "(" + joinStrings(argsTypes, argc) + ")" + returnType);
+std::string replaceDotsBySlashes(std::string className) {
+	for (int i = 0; i < className.size(); i++)
+		if (className[i]=='.')
+			className[i]='/';
+	return className;
+}
 
+void JasminVisitor::addInvokation(std::string invokationType, std::string className, std::string method, std::string argsTypes[], int argc, std::string returnType) {
+	addInstruction("invoke" + invokationType + " " + replaceDotsBySlashes(className) + "/" + method + "(" + joinStrings(argsTypes, argc) + ")" + returnType);
 }
 
 void JasminVisitor::addInvokeVirtualInstruction(std::string className, std::string method, std::string argsTypes[], int argc, std::string returnType) {
@@ -170,6 +176,10 @@ void JasminVisitor::generateJasminCode(Context *global, syntax_tree::AbstractNod
 		std::string type = jvmTypeVisitor->determineJVMType(allVars[i].second);
 		if (type[0]=='[') {
 			appendArrayCreation(allVars[i].second);
+			addPutFieldInstruction(className, allVars[i].first, type);
+		}
+
+		if (appendHashMapCreation(type)) {
 			addPutFieldInstruction(className, allVars[i].first, type);
 		}
 	}
@@ -341,15 +351,41 @@ void JasminVisitor::visit(syntax_tree::Variable *node) {
 	}
 }
 
+std::string getJVMClassWrapperFor(std::string jvmType) {
+	return jvmType == "I" ? "Integer" : "Double";
+}
+
+void JasminVisitor::appendValueObjectWrapping(std::string jvmType) {
+	if (jvmType == "I" || jvmType == "D") {
+		std::string valueClassName = getJVMClassWrapperFor(jvmType);
+
+		valueClassName = "java.lang." + valueClassName;
+
+		std::string args[] = { jvmType };
+
+		addInvokeStaticInstruction(valueClassName, "valueOf", args, 1, "L" + replaceDotsBySlashes(valueClassName) + ";");
+	}
+}
+
+bool JasminVisitor::appendHashMapCreation(std::string jvmType) {
+	if (jvmType.find("HashMap") != std::string::npos) {
+		addNewInstruction("java/util/HashMap");
+		addInstruction("dup");
+		addInvokationConstructorInstruction("java.util.HashMap", NULL, 0);
+		return true;
+	}
+	return false;
+}
+
 void JasminVisitor::visit(syntax_tree::IndexedVariable *node) {
 	syntax_tree::AbstractNode *expr = assignExpression;
 	assignExpression = NULL;
 
 	std::string jvmType = jvmTypeVisitor->determineJVMType(getTypeOfExpression(node->getVariable()));
 
-	if (jvmType[0] == '[') {
-		node->getVariable()->accept(this);
+	node->getVariable()->accept(this);
 
+	if (jvmType[0] == '[') {
 		std::vector< syntax_tree::AbstractNode* > indexes = *(node->getExprList());
 
 		Type *currentType = getTypeOfExpression(node->getVariable());
@@ -382,6 +418,52 @@ void JasminVisitor::visit(syntax_tree::IndexedVariable *node) {
 		}
 
 		addInstruction(ins);
+	} else {
+		//hashmap
+		node->getExprList()->at(0)->accept(this);
+
+		std::string keyJvmType = jvmTypeVisitor->determineJVMType(getTypeOfExpression( node->getExprList()->at(0) ));
+
+		appendValueObjectWrapping(keyJvmType);
+
+		const std::string objectClassName = "Ljava/lang/Object;";
+		std::string args[] = { objectClassName };
+
+		if (expr != NULL) {
+			expr->accept(this);
+
+			std::string jvmValueType = jvmTypeVisitor->determineJVMType(getTypeOfExpression(expr));
+			appendValueObjectWrapping(jvmValueType);
+			std::string args[] = { objectClassName, objectClassName };
+			addInvokeVirtualInstruction("java.util.HashMap", "put", args, 2, objectClassName);
+			addInstruction("pop");
+		} else {
+			std::string jvmValueType = jvmTypeVisitor->determineJVMType(getTypeOfExpression(node));
+
+			addInvokeVirtualInstruction("java.util.HashMap", "get", args, 1, objectClassName);
+
+			std::string castTypeName = jvmValueType;
+
+			if (jvmValueType == "I" || jvmValueType == "D") {
+				castTypeName = "java/lang/";
+				castTypeName += getJVMClassWrapperFor(jvmValueType);
+			}
+
+			addInstruction("checkcast " + castTypeName);
+
+			if (jvmValueType == "I" || jvmValueType == "D") {
+				std::string castingMethodPrefix = jvmValueType == "I" ? "int" : "double";
+				
+				addInvokeVirtualInstruction(
+					"java.lang." + getJVMClassWrapperFor(jvmValueType), 
+					castingMethodPrefix + "Value", 
+					NULL,
+					0,
+					jvmValueType
+				);
+
+			}
+		}
 	}
 }
 
