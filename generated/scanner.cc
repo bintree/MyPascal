@@ -1194,7 +1194,7 @@ YY_RULE_SETUP
 case 58:
 YY_RULE_SETUP
 #line 114 "scanner.ll"
-{ printf("error\n");  }
+{ printf("Lexical Error: unexpected symbol< %s > at line %d, column %d\n", yytext, yylloc->begin.line, yylloc->begin.column); yylloc->step(); }
 	YY_BREAK
 case 59:
 YY_RULE_SETUP

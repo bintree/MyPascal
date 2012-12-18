@@ -111,7 +111,7 @@ typedef generated::Parser::token_type token_type;
     yylloc->lines(yyleng); yylloc->step();
 }
 
-. 	{ printf("error\n");  }
+. 	{ printf("Lexical Error: unexpected symbol< %s > at line %d, column %d\n", yytext, yylloc->begin.line, yylloc->begin.column); yylloc->step(); }
 
 %%
 namespace generated {
