@@ -39,5 +39,5 @@ std::string JVMTypeVisitor::getInstructionPrefixForType(Type* type) {
 		return "d";
 	} 
 
-	return "";
+	return "a";
 }

@@ -397,7 +397,7 @@ void JasminVisitor::visit(syntax_tree::BinaryOperator *node) {
 	} else {
 		std::string prefix = jvmTypeVisitor->getInstructionPrefixForType(getTypeOfExpression(node->getSimpleExpression1()));
 		
-		if (prefix != "") {
+		if (prefix != "a") {
 			std::string opcode = "";
 			if (op == "||") {
 				opcode = "or";
