@@ -430,601 +430,602 @@ namespace generated {
 	  case 2:
 
 /* Line 680 of lalr1.cc  */
-#line 107 "parser.yy"
+#line 105 "parser.yy"
     { (yyval.an)=new syntax_tree::Program(BEGIN_POSITION((yylocation_stack_[(3) - (1)])),(yysemantic_stack_[(3) - (1)].vn),(yysemantic_stack_[(3) - (2)].an),END_POSITION((yylocation_stack_[(3) - (2)]))); result = (yyval.an); }
     break;
 
   case 3:
 
 /* Line 680 of lalr1.cc  */
-#line 111 "parser.yy"
+#line 109 "parser.yy"
     { (yyval.an)=new syntax_tree::Block(BEGIN_POSITION((yylocation_stack_[(2) - (1)])),(yysemantic_stack_[(2) - (1)].vn),(yysemantic_stack_[(2) - (2)].an),END_POSITION((yylocation_stack_[(2) - (2)]))); }
     break;
 
   case 4:
 
 /* Line 680 of lalr1.cc  */
-#line 115 "parser.yy"
+#line 113 "parser.yy"
     { (yyval.vn)=new std::vector<syntax_tree::AbstractNode*>(); }
     break;
 
   case 5:
 
 /* Line 680 of lalr1.cc  */
-#line 116 "parser.yy"
+#line 114 "parser.yy"
     { (yyval.vn)=(yysemantic_stack_[(2) - (2)].vn); }
     break;
 
   case 6:
 
 /* Line 680 of lalr1.cc  */
-#line 120 "parser.yy"
+#line 118 "parser.yy"
     { (yyval.vn)=new std::vector<syntax_tree::AbstractNode*>();(yyval.vn)->push_back((yysemantic_stack_[(2) - (1)].an)); }
     break;
 
   case 7:
 
 /* Line 680 of lalr1.cc  */
-#line 121 "parser.yy"
+#line 119 "parser.yy"
     { (yysemantic_stack_[(3) - (3)].vn)->push_back((yysemantic_stack_[(3) - (1)].an));(yyval.vn)=(yysemantic_stack_[(3) - (3)].vn); }
     break;
 
   case 8:
 
 /* Line 680 of lalr1.cc  */
-#line 125 "parser.yy"
+#line 123 "parser.yy"
     { (yyval.an)=new syntax_tree::VariableDeclaration(BEGIN_POSITION((yylocation_stack_[(3) - (1)])),(yysemantic_stack_[(3) - (1)].vn),(yysemantic_stack_[(3) - (3)].an),END_POSITION((yylocation_stack_[(3) - (3)]))); }
     break;
 
   case 9:
 
 /* Line 680 of lalr1.cc  */
-#line 129 "parser.yy"
+#line 127 "parser.yy"
     { (yyval.vn)=new std::vector< syntax_tree::AbstractNode* >(); }
     break;
 
   case 10:
 
 /* Line 680 of lalr1.cc  */
-#line 130 "parser.yy"
+#line 128 "parser.yy"
     { (yysemantic_stack_[(3) - (3)].vn)->push_back((yysemantic_stack_[(3) - (1)].an)); (yyval.vn)=(yysemantic_stack_[(3) - (3)].vn); }
     break;
 
   case 11:
 
 /* Line 680 of lalr1.cc  */
-#line 131 "parser.yy"
+#line 129 "parser.yy"
     { (yysemantic_stack_[(3) - (3)].vn)->push_back((yysemantic_stack_[(3) - (1)].an)); (yyval.vn)=(yysemantic_stack_[(3) - (3)].vn); }
     break;
 
   case 12:
 
 /* Line 680 of lalr1.cc  */
-#line 132 "parser.yy"
+#line 130 "parser.yy"
     { yyerrok; }
     break;
 
   case 13:
 
 /* Line 680 of lalr1.cc  */
-#line 136 "parser.yy"
+#line 134 "parser.yy"
     { (yyval.an)=new syntax_tree::ProcedureDeclaration(BEGIN_POSITION((yylocation_stack_[(4) - (2)])),(yysemantic_stack_[(4) - (2)].an),(yysemantic_stack_[(4) - (4)].an),new std::vector< syntax_tree::AbstractNode* >(),END_POSITION((yylocation_stack_[(4) - (4)]))); }
     break;
 
   case 14:
 
 /* Line 680 of lalr1.cc  */
-#line 137 "parser.yy"
+#line 135 "parser.yy"
     { (yyval.an)=new syntax_tree::ProcedureDeclaration(BEGIN_POSITION((yylocation_stack_[(7) - (2)])),(yysemantic_stack_[(7) - (2)].an),(yysemantic_stack_[(7) - (7)].an),(yysemantic_stack_[(7) - (4)].vn),END_POSITION((yylocation_stack_[(7) - (7)]))); }
     break;
 
   case 15:
 
 /* Line 680 of lalr1.cc  */
-#line 141 "parser.yy"
+#line 139 "parser.yy"
     { (yyval.an)=new syntax_tree::FunctionDeclaration(BEGIN_POSITION((yylocation_stack_[(6) - (1)])),(yysemantic_stack_[(6) - (2)].an),NEW_NODE_VECTOR,(yysemantic_stack_[(6) - (4)].an),(yysemantic_stack_[(6) - (6)].an),END_POSITION((yylocation_stack_[(6) - (6)]))); }
     break;
 
   case 16:
 
 /* Line 680 of lalr1.cc  */
-#line 142 "parser.yy"
+#line 140 "parser.yy"
     { (yyval.an)=new syntax_tree::FunctionDeclaration(BEGIN_POSITION((yylocation_stack_[(9) - (1)])),(yysemantic_stack_[(9) - (2)].an),(yysemantic_stack_[(9) - (4)].vn),(yysemantic_stack_[(9) - (7)].an),(yysemantic_stack_[(9) - (9)].an),END_POSITION((yylocation_stack_[(9) - (9)]))); }
     break;
 
   case 17:
 
 /* Line 680 of lalr1.cc  */
-#line 146 "parser.yy"
+#line 144 "parser.yy"
     { (yyval.vn)=NEW_NODE_VECTOR; }
     break;
 
   case 18:
 
 /* Line 680 of lalr1.cc  */
-#line 147 "parser.yy"
+#line 145 "parser.yy"
     { (yysemantic_stack_[(3) - (3)].vn)->push_back((yysemantic_stack_[(3) - (1)].an)); (yyval.vn)=(yysemantic_stack_[(3) - (3)].vn); }
     break;
 
   case 19:
 
 /* Line 680 of lalr1.cc  */
-#line 148 "parser.yy"
+#line 146 "parser.yy"
     { yyerrok; }
     break;
 
   case 20:
 
 /* Line 680 of lalr1.cc  */
-#line 152 "parser.yy"
+#line 150 "parser.yy"
     { (yyval.an)=new syntax_tree::FormalParameterSection(BEGIN_POSITION((yylocation_stack_[(3) - (1)])),(yysemantic_stack_[(3) - (1)].vn),(yysemantic_stack_[(3) - (3)].an), END_POSITION((yylocation_stack_[(3) - (3)]))); }
     break;
 
   case 21:
 
 /* Line 680 of lalr1.cc  */
-#line 156 "parser.yy"
+#line 154 "parser.yy"
     { (yyval.vn)=new std::vector<syntax_tree::AbstractNode*>(); }
     break;
 
   case 22:
 
 /* Line 680 of lalr1.cc  */
-#line 157 "parser.yy"
+#line 155 "parser.yy"
     { (yysemantic_stack_[(3) - (3)].vn)->push_back((yysemantic_stack_[(3) - (1)].an)); (yyval.vn)=(yysemantic_stack_[(3) - (3)].vn); }
     break;
 
   case 23:
 
 /* Line 680 of lalr1.cc  */
-#line 161 "parser.yy"
+#line 159 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(1) - (1)].an); }
     break;
 
   case 24:
 
 /* Line 680 of lalr1.cc  */
-#line 162 "parser.yy"
+#line 160 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(1) - (1)].an); }
     break;
 
   case 25:
 
 /* Line 680 of lalr1.cc  */
-#line 166 "parser.yy"
+#line 164 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(1) - (1)].an); }
     break;
 
   case 26:
 
 /* Line 680 of lalr1.cc  */
-#line 167 "parser.yy"
+#line 165 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(1) - (1)].an); }
     break;
 
   case 27:
 
 /* Line 680 of lalr1.cc  */
-#line 171 "parser.yy"
+#line 169 "parser.yy"
     { (yyval.an)=new syntax_tree::AssignmentStatement(BEGIN_POSITION((yylocation_stack_[(3) - (1)])),(yysemantic_stack_[(3) - (1)].an),(yysemantic_stack_[(3) - (3)].an),END_POSITION((yylocation_stack_[(3) - (3)]))); }
     break;
 
   case 28:
 
 /* Line 680 of lalr1.cc  */
-#line 175 "parser.yy"
+#line 173 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(1) - (1)].an); }
     break;
 
   case 29:
 
 /* Line 680 of lalr1.cc  */
-#line 176 "parser.yy"
+#line 174 "parser.yy"
     { (yyval.an)=new syntax_tree::ProcedureStatement(BEGIN_POSITION((yylocation_stack_[(4) - (1)])),(yysemantic_stack_[(4) - (1)].an),(yysemantic_stack_[(4) - (3)].vn),END_POSITION((yylocation_stack_[(4) - (4)]))); }
     break;
 
   case 30:
 
 /* Line 680 of lalr1.cc  */
-#line 180 "parser.yy"
+#line 178 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(1) - (1)].an); }
     break;
 
   case 31:
 
 /* Line 680 of lalr1.cc  */
-#line 181 "parser.yy"
+#line 179 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(1) - (1)].an); }
     break;
 
   case 32:
 
 /* Line 680 of lalr1.cc  */
-#line 182 "parser.yy"
+#line 180 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(1) - (1)].an); }
     break;
 
   case 33:
 
 /* Line 680 of lalr1.cc  */
-#line 186 "parser.yy"
+#line 184 "parser.yy"
     { (yyval.an)=new syntax_tree::CompoundStatement(BEGIN_POSITION((yylocation_stack_[(3) - (1)])), (yysemantic_stack_[(3) - (2)].vn), END_POSITION((yylocation_stack_[(3) - (3)]))); }
     break;
 
   case 34:
 
 /* Line 680 of lalr1.cc  */
-#line 190 "parser.yy"
+#line 188 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(1) - (1)].an); }
     break;
 
   case 35:
 
 /* Line 680 of lalr1.cc  */
-#line 191 "parser.yy"
+#line 189 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(1) - (1)].an); }
     break;
 
   case 36:
 
 /* Line 680 of lalr1.cc  */
-#line 195 "parser.yy"
+#line 193 "parser.yy"
     { (yyval.an)=new syntax_tree::WhileStatement(BEGIN_POSITION((yylocation_stack_[(6) - (1)])),(yysemantic_stack_[(6) - (3)].an),(yysemantic_stack_[(6) - (6)].an),END_POSITION((yylocation_stack_[(6) - (6)]))); }
     break;
 
   case 37:
 
 /* Line 680 of lalr1.cc  */
-#line 199 "parser.yy"
+#line 197 "parser.yy"
     { (yyval.an)=new syntax_tree::ForStatement(BEGIN_POSITION((yylocation_stack_[(8) - (1)])),(yysemantic_stack_[(8) - (2)].an),(yysemantic_stack_[(8) - (4)].an),(yysemantic_stack_[(8) - (6)].an),(yysemantic_stack_[(8) - (8)].an),END_POSITION((yylocation_stack_[(8) - (8)]))); }
     break;
 
   case 38:
 
 /* Line 680 of lalr1.cc  */
-#line 200 "parser.yy"
+#line 198 "parser.yy"
     { (yyval.an)=new syntax_tree::ForStatement(BEGIN_POSITION((yylocation_stack_[(8) - (1)])),(yysemantic_stack_[(8) - (2)].an),(yysemantic_stack_[(8) - (4)].an),(yysemantic_stack_[(8) - (6)].an),(yysemantic_stack_[(8) - (8)].an),END_POSITION((yylocation_stack_[(8) - (8)]))); }
     break;
 
   case 39:
 
 /* Line 680 of lalr1.cc  */
-#line 204 "parser.yy"
+#line 202 "parser.yy"
     { (yyval.an)=new syntax_tree::IfStatement(BEGIN_POSITION((yylocation_stack_[(7) - (1)])),(yysemantic_stack_[(7) - (3)].an), (yysemantic_stack_[(7) - (6)].an), (yysemantic_stack_[(7) - (7)].an),END_POSITION((yylocation_stack_[(7) - (7)])) ); }
     break;
 
   case 40:
 
 /* Line 680 of lalr1.cc  */
-#line 208 "parser.yy"
+#line 206 "parser.yy"
     { (yyval.an)=NULL; }
     break;
 
   case 41:
 
 /* Line 680 of lalr1.cc  */
-#line 209 "parser.yy"
+#line 207 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(2) - (2)].an); }
     break;
 
   case 42:
 
 /* Line 680 of lalr1.cc  */
-#line 213 "parser.yy"
+#line 211 "parser.yy"
     { (yyval.vn)=new std::vector<syntax_tree::AbstractNode*>(); }
     break;
 
   case 43:
 
 /* Line 680 of lalr1.cc  */
-#line 214 "parser.yy"
+#line 212 "parser.yy"
     { (yyval.vn)=NEW_NODE_VECTOR; (yyval.vn)->push_back((yysemantic_stack_[(1) - (1)].an)); }
     break;
 
   case 44:
 
 /* Line 680 of lalr1.cc  */
-#line 215 "parser.yy"
+#line 213 "parser.yy"
     { (yyval.vn)=(yysemantic_stack_[(3) - (3)].vn); (yysemantic_stack_[(3) - (3)].vn)->push_back((yysemantic_stack_[(3) - (1)].an)); }
     break;
 
   case 45:
 
 /* Line 680 of lalr1.cc  */
-#line 219 "parser.yy"
+#line 217 "parser.yy"
     { (yyval.an)=new syntax_tree::UnaryOperator(BEGIN_POSITION((yylocation_stack_[(2) - (1)])),MAKE_TERMINAL_NODE("-", (yylocation_stack_[(2) - (1)])), (yysemantic_stack_[(2) - (2)].an),END_POSITION((yylocation_stack_[(2) - (2)]))); }
     break;
 
   case 46:
 
 /* Line 680 of lalr1.cc  */
-#line 220 "parser.yy"
+#line 218 "parser.yy"
     { (yyval.an)=new syntax_tree::BinaryOperator(BEGIN_POSITION((yylocation_stack_[(3) - (1)])),(yysemantic_stack_[(3) - (1)].an),MAKE_TERMINAL_NODE("&&", (yylocation_stack_[(3) - (2)])),(yysemantic_stack_[(3) - (3)].an),END_POSITION((yylocation_stack_[(3) - (3)]))); }
     break;
 
   case 47:
 
 /* Line 680 of lalr1.cc  */
-#line 221 "parser.yy"
+#line 219 "parser.yy"
     { (yyval.an)=new syntax_tree::BinaryOperator(BEGIN_POSITION((yylocation_stack_[(3) - (1)])),(yysemantic_stack_[(3) - (1)].an),MAKE_TERMINAL_NODE("mod", (yylocation_stack_[(3) - (2)])),(yysemantic_stack_[(3) - (3)].an),END_POSITION((yylocation_stack_[(3) - (3)]))); }
     break;
 
   case 48:
 
 /* Line 680 of lalr1.cc  */
-#line 222 "parser.yy"
+#line 220 "parser.yy"
     { (yyval.an)=new syntax_tree::BinaryOperator(BEGIN_POSITION((yylocation_stack_[(3) - (1)])),(yysemantic_stack_[(3) - (1)].an),MAKE_TERMINAL_NODE("div", (yylocation_stack_[(3) - (2)])),(yysemantic_stack_[(3) - (3)].an),END_POSITION((yylocation_stack_[(3) - (3)]))); }
     break;
 
   case 49:
 
 /* Line 680 of lalr1.cc  */
-#line 223 "parser.yy"
+#line 221 "parser.yy"
     { (yyval.an)=new syntax_tree::BinaryOperator(BEGIN_POSITION((yylocation_stack_[(3) - (1)])),(yysemantic_stack_[(3) - (1)].an),MAKE_TERMINAL_NODE("/", (yylocation_stack_[(3) - (2)])),(yysemantic_stack_[(3) - (3)].an),END_POSITION((yylocation_stack_[(3) - (3)]))); }
     break;
 
   case 50:
 
 /* Line 680 of lalr1.cc  */
-#line 224 "parser.yy"
+#line 222 "parser.yy"
     { (yyval.an)=new syntax_tree::BinaryOperator(BEGIN_POSITION((yylocation_stack_[(3) - (1)])),(yysemantic_stack_[(3) - (1)].an),MAKE_TERMINAL_NODE("*", (yylocation_stack_[(3) - (2)])),(yysemantic_stack_[(3) - (3)].an),END_POSITION((yylocation_stack_[(3) - (3)]))); }
     break;
 
   case 51:
 
 /* Line 680 of lalr1.cc  */
-#line 225 "parser.yy"
+#line 223 "parser.yy"
     {  (yyval.an)=new syntax_tree::BinaryOperator(BEGIN_POSITION((yylocation_stack_[(3) - (1)])),(yysemantic_stack_[(3) - (1)].an),MAKE_TERMINAL_NODE("+", (yylocation_stack_[(3) - (2)])),(yysemantic_stack_[(3) - (3)].an),END_POSITION((yylocation_stack_[(3) - (3)]))); }
     break;
 
   case 52:
 
 /* Line 680 of lalr1.cc  */
-#line 226 "parser.yy"
+#line 224 "parser.yy"
     { (yyval.an)=new syntax_tree::BinaryOperator(BEGIN_POSITION((yylocation_stack_[(3) - (1)])),(yysemantic_stack_[(3) - (1)].an),MAKE_TERMINAL_NODE("-", (yylocation_stack_[(3) - (2)])),(yysemantic_stack_[(3) - (3)].an),END_POSITION((yylocation_stack_[(3) - (3)]))); }
     break;
 
   case 53:
 
 /* Line 680 of lalr1.cc  */
-#line 227 "parser.yy"
+#line 225 "parser.yy"
     { (yyval.an)=new syntax_tree::BinaryOperator(BEGIN_POSITION((yylocation_stack_[(3) - (1)])),(yysemantic_stack_[(3) - (1)].an),MAKE_TERMINAL_NODE("||", (yylocation_stack_[(3) - (2)])),(yysemantic_stack_[(3) - (3)].an),END_POSITION((yylocation_stack_[(3) - (3)]))); }
     break;
 
   case 54:
 
 /* Line 680 of lalr1.cc  */
-#line 228 "parser.yy"
+#line 226 "parser.yy"
     { (yyval.an)=new syntax_tree::BinaryOperator(BEGIN_POSITION((yylocation_stack_[(3) - (1)])),(yysemantic_stack_[(3) - (1)].an),MAKE_TERMINAL_NODE(">=", (yylocation_stack_[(3) - (2)])),(yysemantic_stack_[(3) - (3)].an),END_POSITION((yylocation_stack_[(3) - (3)]))); }
     break;
 
   case 55:
 
 /* Line 680 of lalr1.cc  */
-#line 229 "parser.yy"
+#line 227 "parser.yy"
     { (yyval.an)=new syntax_tree::BinaryOperator(BEGIN_POSITION((yylocation_stack_[(3) - (1)])),(yysemantic_stack_[(3) - (1)].an),MAKE_TERMINAL_NODE(">", (yylocation_stack_[(3) - (2)])),(yysemantic_stack_[(3) - (3)].an),END_POSITION((yylocation_stack_[(3) - (3)]))); }
     break;
 
   case 56:
 
 /* Line 680 of lalr1.cc  */
-#line 230 "parser.yy"
+#line 228 "parser.yy"
     { (yyval.an)=new syntax_tree::BinaryOperator(BEGIN_POSITION((yylocation_stack_[(3) - (1)])),(yysemantic_stack_[(3) - (1)].an),MAKE_TERMINAL_NODE("<=", (yylocation_stack_[(3) - (2)])),(yysemantic_stack_[(3) - (3)].an),END_POSITION((yylocation_stack_[(3) - (3)]))); }
     break;
 
   case 57:
 
 /* Line 680 of lalr1.cc  */
-#line 231 "parser.yy"
+#line 229 "parser.yy"
     { (yyval.an)=new syntax_tree::BinaryOperator(BEGIN_POSITION((yylocation_stack_[(3) - (1)])),(yysemantic_stack_[(3) - (1)].an),MAKE_TERMINAL_NODE("<", (yylocation_stack_[(3) - (2)])),(yysemantic_stack_[(3) - (3)].an),END_POSITION((yylocation_stack_[(3) - (3)]))); }
     break;
 
   case 58:
 
 /* Line 680 of lalr1.cc  */
-#line 232 "parser.yy"
+#line 230 "parser.yy"
     { (yyval.an)=new syntax_tree::BinaryOperator(BEGIN_POSITION((yylocation_stack_[(3) - (1)])),(yysemantic_stack_[(3) - (1)].an),MAKE_TERMINAL_NODE("!=", (yylocation_stack_[(3) - (2)])),(yysemantic_stack_[(3) - (3)].an),END_POSITION((yylocation_stack_[(3) - (3)]))); }
     break;
 
   case 59:
 
 /* Line 680 of lalr1.cc  */
-#line 233 "parser.yy"
+#line 231 "parser.yy"
     { (yyval.an)=new syntax_tree::BinaryOperator(BEGIN_POSITION((yylocation_stack_[(3) - (1)])),(yysemantic_stack_[(3) - (1)].an),MAKE_TERMINAL_NODE("==", (yylocation_stack_[(3) - (2)])),(yysemantic_stack_[(3) - (3)].an),END_POSITION((yylocation_stack_[(3) - (3)]))); }
     break;
 
   case 60:
 
 /* Line 680 of lalr1.cc  */
-#line 234 "parser.yy"
+#line 232 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(1) - (1)].an); }
     break;
 
   case 61:
 
 /* Line 680 of lalr1.cc  */
-#line 235 "parser.yy"
+#line 233 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(1) - (1)].an); }
     break;
 
   case 62:
 
 /* Line 680 of lalr1.cc  */
-#line 236 "parser.yy"
+#line 234 "parser.yy"
     { (yyval.an)=new syntax_tree::Terminal((yysemantic_stack_[(1) - (1)].s),syntax_tree::STRING_LITERAL,BEGIN_POSITION((yylocation_stack_[(1) - (1)])),END_POSITION((yylocation_stack_[(1) - (1)]))); }
     break;
 
   case 63:
 
 /* Line 680 of lalr1.cc  */
-#line 237 "parser.yy"
+#line 235 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(1) - (1)].an); }
     break;
 
   case 64:
 
 /* Line 680 of lalr1.cc  */
-#line 238 "parser.yy"
+#line 236 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(3) - (2)].an); }
     break;
 
   case 65:
 
 /* Line 680 of lalr1.cc  */
-#line 239 "parser.yy"
+#line 237 "parser.yy"
     { (yyval.an)=new syntax_tree::UnaryOperator(BEGIN_POSITION((yylocation_stack_[(2) - (1)])),MAKE_TERMINAL_NODE("not", (yylocation_stack_[(2) - (1)])),(yysemantic_stack_[(2) - (2)].an),END_POSITION((yylocation_stack_[(2) - (2)]))); }
     break;
 
   case 66:
 
 /* Line 680 of lalr1.cc  */
-#line 243 "parser.yy"
+#line 241 "parser.yy"
     { (yyval.an)=new syntax_tree::Variable(BEGIN_POSITION((yylocation_stack_[(1) - (1)])),(yysemantic_stack_[(1) - (1)].an),END_POSITION((yylocation_stack_[(1) - (1)]))); }
     break;
 
   case 67:
 
 /* Line 680 of lalr1.cc  */
-#line 244 "parser.yy"
+#line 242 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(1) - (1)].an); }
     break;
 
   case 68:
 
 /* Line 680 of lalr1.cc  */
-#line 248 "parser.yy"
+#line 246 "parser.yy"
     { (yyval.an)=new syntax_tree::IndexedVariable(BEGIN_POSITION((yylocation_stack_[(4) - (1)])),(yysemantic_stack_[(4) - (1)].an),(yysemantic_stack_[(4) - (3)].vn),END_POSITION((yylocation_stack_[(4) - (4)]))); }
     break;
 
   case 69:
 
 /* Line 680 of lalr1.cc  */
-#line 252 "parser.yy"
+#line 250 "parser.yy"
     { (yyval.an)=new syntax_tree::FunctionDesignator(BEGIN_POSITION((yylocation_stack_[(4) - (1)])),(yysemantic_stack_[(4) - (1)].an),(yysemantic_stack_[(4) - (3)].vn),END_POSITION((yylocation_stack_[(4) - (4)]))); }
     break;
 
   case 70:
 
 /* Line 680 of lalr1.cc  */
-#line 256 "parser.yy"
+#line 254 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(1) - (1)].an); }
     break;
 
   case 71:
 
 /* Line 680 of lalr1.cc  */
-#line 257 "parser.yy"
+#line 255 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(1) - (1)].an); }
     break;
 
   case 72:
 
 /* Line 680 of lalr1.cc  */
-#line 261 "parser.yy"
+#line 259 "parser.yy"
     { 
 	(yyval.an)=new syntax_tree::SubrangeType(
 		BEGIN_POSITION((yylocation_stack_[(3) - (1)])),
 		new syntax_tree::Terminal((yysemantic_stack_[(3) - (1)].s),syntax_tree::INTEGER_LITERAL,BEGIN_POSITION((yylocation_stack_[(3) - (1)])),END_POSITION((yylocation_stack_[(3) - (1)]))),
 		new syntax_tree::Terminal((yysemantic_stack_[(3) - (3)].s),syntax_tree::INTEGER_LITERAL,BEGIN_POSITION((yylocation_stack_[(3) - (3)])),END_POSITION((yylocation_stack_[(3) - (3)]))),
 		END_POSITION((yylocation_stack_[(3) - (3)]))
-	); }
+	);
+	 }
     break;
 
   case 73:
 
 /* Line 680 of lalr1.cc  */
-#line 271 "parser.yy"
+#line 270 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(1) - (1)].an); }
     break;
 
   case 74:
 
 /* Line 680 of lalr1.cc  */
-#line 272 "parser.yy"
+#line 271 "parser.yy"
     { (yyval.an)=(yysemantic_stack_[(1) - (1)].an); }
     break;
 
   case 75:
 
 /* Line 680 of lalr1.cc  */
-#line 276 "parser.yy"
+#line 275 "parser.yy"
     { (yyval.an)=new syntax_tree::ArrayType(BEGIN_POSITION((yylocation_stack_[(6) - (1)])),(yysemantic_stack_[(6) - (3)].vn),(yysemantic_stack_[(6) - (6)].an), END_POSITION((yylocation_stack_[(6) - (6)]))); }
     break;
 
   case 76:
 
 /* Line 680 of lalr1.cc  */
-#line 280 "parser.yy"
+#line 279 "parser.yy"
     { (yyval.vn)=NEW_NODE_VECTOR; (yyval.vn)->push_back((yysemantic_stack_[(1) - (1)].an)); }
     break;
 
   case 77:
 
 /* Line 680 of lalr1.cc  */
-#line 281 "parser.yy"
+#line 280 "parser.yy"
     { (yyval.vn)=(yysemantic_stack_[(3) - (3)].vn); (yyval.vn)->push_back((yysemantic_stack_[(3) - (1)].an)); }
     break;
 
   case 78:
 
 /* Line 680 of lalr1.cc  */
-#line 285 "parser.yy"
+#line 284 "parser.yy"
     { (yyval.an)=new syntax_tree::CollectionType(BEGIN_POSITION((yylocation_stack_[(4) - (1)])),(yysemantic_stack_[(4) - (1)].an),(yysemantic_stack_[(4) - (3)].vn),END_POSITION((yylocation_stack_[(4) - (4)]))); }
     break;
 
   case 79:
 
 /* Line 680 of lalr1.cc  */
-#line 289 "parser.yy"
+#line 288 "parser.yy"
     { (yyval.vn)=NEW_NODE_VECTOR; (yyval.vn)->push_back((yysemantic_stack_[(1) - (1)].an)); }
     break;
 
   case 80:
 
 /* Line 680 of lalr1.cc  */
-#line 290 "parser.yy"
+#line 289 "parser.yy"
     { (yyval.vn)=(yysemantic_stack_[(3) - (3)].vn); (yyval.vn)->push_back((yysemantic_stack_[(3) - (1)].an)); }
     break;
 
   case 81:
 
 /* Line 680 of lalr1.cc  */
-#line 294 "parser.yy"
+#line 293 "parser.yy"
     { (yyval.vn)=NEW_NODE_VECTOR; (yyval.vn)->push_back((yysemantic_stack_[(1) - (1)].an)); }
     break;
 
   case 82:
 
 /* Line 680 of lalr1.cc  */
-#line 295 "parser.yy"
+#line 294 "parser.yy"
     { (yyval.vn)=(yysemantic_stack_[(3) - (3)].vn); (yyval.vn)->push_back((yysemantic_stack_[(3) - (1)].an)); }
     break;
 
   case 83:
 
 /* Line 680 of lalr1.cc  */
-#line 299 "parser.yy"
+#line 298 "parser.yy"
     { (yyval.an) = new syntax_tree::Terminal((yysemantic_stack_[(1) - (1)].s),syntax_tree::INTEGER_LITERAL,BEGIN_POSITION((yylocation_stack_[(1) - (1)])),END_POSITION((yylocation_stack_[(1) - (1)]))); }
     break;
 
   case 84:
 
 /* Line 680 of lalr1.cc  */
-#line 300 "parser.yy"
+#line 299 "parser.yy"
     { (yyval.an) = new syntax_tree::Terminal((yysemantic_stack_[(1) - (1)].s),syntax_tree::DOUBLE_LITERAL,BEGIN_POSITION((yylocation_stack_[(1) - (1)])),END_POSITION((yylocation_stack_[(1) - (1)]))); }
     break;
 
   case 85:
 
 /* Line 680 of lalr1.cc  */
-#line 304 "parser.yy"
+#line 303 "parser.yy"
     { (yyval.an) = MAKE_TERMINAL_NODE((yysemantic_stack_[(1) - (1)].s), (yylocation_stack_[(1) - (1)])); }
     break;
 
 
 
 /* Line 680 of lalr1.cc  */
-#line 1028 "parser.cc"
+#line 1029 "parser.cc"
 	default:
           break;
       }
@@ -1542,15 +1543,15 @@ namespace generated {
   const unsigned short int
   Parser::yyrline_[] =
   {
-         0,   107,   107,   111,   115,   116,   120,   121,   125,   129,
-     130,   131,   132,   136,   137,   141,   142,   146,   147,   148,
-     152,   156,   157,   161,   162,   166,   167,   171,   175,   176,
-     180,   181,   182,   186,   190,   191,   195,   199,   200,   204,
-     208,   209,   213,   214,   215,   219,   220,   221,   222,   223,
-     224,   225,   226,   227,   228,   229,   230,   231,   232,   233,
-     234,   235,   236,   237,   238,   239,   243,   244,   248,   252,
-     256,   257,   261,   271,   272,   276,   280,   281,   285,   289,
-     290,   294,   295,   299,   300,   304
+         0,   105,   105,   109,   113,   114,   118,   119,   123,   127,
+     128,   129,   130,   134,   135,   139,   140,   144,   145,   146,
+     150,   154,   155,   159,   160,   164,   165,   169,   173,   174,
+     178,   179,   180,   184,   188,   189,   193,   197,   198,   202,
+     206,   207,   211,   212,   213,   217,   218,   219,   220,   221,
+     222,   223,   224,   225,   226,   227,   228,   229,   230,   231,
+     232,   233,   234,   235,   236,   237,   241,   242,   246,   250,
+     254,   255,   259,   270,   271,   275,   279,   280,   284,   288,
+     289,   293,   294,   298,   299,   303
   };
 
   // Print the state stack on the debug stream.
@@ -1644,11 +1645,11 @@ namespace generated {
 } // generated
 
 /* Line 1056 of lalr1.cc  */
-#line 1648 "parser.cc"
+#line 1649 "parser.cc"
 
 
 /* Line 1058 of lalr1.cc  */
-#line 306 "parser.yy"
+#line 305 "parser.yy"
 
 
 

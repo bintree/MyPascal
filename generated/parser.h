@@ -114,8 +114,6 @@ namespace generated {
 /* Line 34 of lalr1.cc  */
 #line 52 "parser.yy"
 
-	double d;
-	int i;
 	char* s;
 	class syntax_tree::AbstractNode* an;
 	class std::vector<class syntax_tree::AbstractNode*> * vn;
@@ -123,7 +121,7 @@ namespace generated {
 
 
 /* Line 34 of lalr1.cc  */
-#line 127 "parser.h"
+#line 125 "parser.h"
     };
 #else
     typedef YYSTYPE semantic_type;
@@ -359,7 +357,7 @@ namespace generated {
 } // generated
 
 /* Line 34 of lalr1.cc  */
-#line 363 "parser.h"
+#line 361 "parser.h"
 
 
 

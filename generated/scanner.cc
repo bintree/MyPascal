@@ -619,7 +619,7 @@ typedef generated::Parser::token_type token_type;
 /* no support for include files is planned */
 #line 30 "scanner.ll"
 #define YY_USER_ACTION  yylloc->columns(yyleng);
-#define RETURN_TOKEN(__a) yylval->s = yytext; return token::__a;
+#define RETURN_TOKEN(__a) yylval->s = strdup(yytext); return token::__a;
 
 #line 625 "scanner.cc"
 
@@ -1164,12 +1164,12 @@ YY_RULE_SETUP
 case 53:
 YY_RULE_SETUP
 #line 100 "scanner.ll"
-{ yylval->d = atof(yytext); RETURN_TOKEN(DOUBLE_LITERAL);}
+{ RETURN_TOKEN(DOUBLE_LITERAL);}
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
 #line 101 "scanner.ll"
-{ yylval->i = atoi(yytext); RETURN_TOKEN(INTEGER_LITERAL);}
+{ RETURN_TOKEN(INTEGER_LITERAL);}
 	YY_BREAK
 case 55:
 YY_RULE_SETUP

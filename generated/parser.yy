@@ -50,8 +50,6 @@
 %token END	     0	"end of file"
 
 %union {
-	double d;
-	int i;
 	char* s;
 	class syntax_tree::AbstractNode* an;
 	class std::vector<class syntax_tree::AbstractNode*> * vn;
@@ -264,7 +262,8 @@ INTEGER_LITERAL DOTDOT INTEGER_LITERAL {
 		new syntax_tree::Terminal($1,syntax_tree::INTEGER_LITERAL,BEGIN_POSITION(@1),END_POSITION(@1)),
 		new syntax_tree::Terminal($3,syntax_tree::INTEGER_LITERAL,BEGIN_POSITION(@3),END_POSITION(@3)),
 		END_POSITION(@3)
-	); }
+	);
+	 }
 ;
 
 structured_type :
