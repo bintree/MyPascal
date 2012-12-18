@@ -12,6 +12,7 @@ private:
 	std::string jvmTypeName;
 public:
 	std::string determineJVMType(Type* type);
+	std::string getInstructionPrefixForType(Type* type);
 	virtual void visit(Array* type);
 	virtual void visit(HashMapType* type);
 	virtual void visit(SimpleType* type);

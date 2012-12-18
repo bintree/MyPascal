@@ -28,3 +28,16 @@ std::string JVMTypeVisitor::determineJVMType(Type* type) {
 	type->accept(this);
 	return jvmTypeName;
 }
+
+std::string JVMTypeVisitor::getInstructionPrefixForType(Type* type) {
+	std::string jvmType = determineJVMType(type);
+
+	if (jvmType == "I") {
+		return "i";
+	} 
+	if (jvmType == "D") {
+		return "d";
+	} 
+
+	return "";
+}
