@@ -97,8 +97,8 @@ typedef generated::Parser::token_type token_type;
 "]"             { RETURN_TOKEN(RIGHTBRACKET) }
 
 
-[1-9][0-9]*\.[0-9]+		       { yylval->d = atof(yytext); RETURN_TOKEN(DOUBLE_LITERAL);}
-[1-9][0-9]*			       { yylval->i = atoi(yytext); RETURN_TOKEN(INTEGER_LITERAL);}
+([1-9][0-9]*|0)\.[0-9]+		       { yylval->d = atof(yytext); RETURN_TOKEN(DOUBLE_LITERAL);}
+[1-9][0-9]*|0			       { yylval->i = atoi(yytext); RETURN_TOKEN(INTEGER_LITERAL);}
 
 [a-zA-Z_][a-zA-Z_0-9]*		       { RETURN_TOKEN(IDENT); }
 
