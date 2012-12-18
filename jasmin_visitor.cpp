@@ -1,5 +1,11 @@
 #include "jasmin_visitor.h"
 
+std::string intToStr(int u) {
+	char s[12];
+	sprintf(s, "%d", u);
+	return s;
+}
+
 void printLineToOStream(std::string s, std::ostream &out) {
 	out<< s << std::endl;
 }
@@ -61,6 +67,26 @@ void JasminVisitor::addPutFieldInstruction(std::string className, std::string fi
 }
 void JasminVisitor::addGetFieldInstruction(std::string className, std::string fieldName, std::string type) {
 	addInstruction("getstatic " + className + "." + fieldName + " " + type);
+}
+
+void JasminVisitor::appendArrayCreation(Type* arrayType) {
+	int dims = 0;
+
+	std::string jvmType = jvmTypeVisitor->determineJVMType(arrayType);
+
+
+
+	for (; jvmType[dims]=='['; dims++) {
+		std::pair< int, Type* > offsetAndType = jvmTypeVisitor->getOffsetTypeOfArrayDereferencing(arrayType);
+
+		int length = jvmTypeVisitor->getLengthOfArrayType(arrayType);
+
+		addInstruction("ldc " + intToStr(length));
+
+		arrayType = offsetAndType.second;
+	}
+
+	addInstruction("multianewarray " + jvmType + " " + intToStr(dims));
 }
 
 int JasminVisitor::getNextLabelNumber() {
@@ -139,6 +165,14 @@ void JasminVisitor::generateJasminCode(Context *global, syntax_tree::AbstractNod
 	std::string args[] = {"Ljava/io/InputStream;"};
 	addInvokationConstructorInstruction("java/util/Scanner", args, 1);
 	addPutFieldInstruction(className, "__input", "Ljava/util/Scanner;");
+
+	for (int i = 0; i < allVars.size(); i++) {
+		std::string type = jvmTypeVisitor->determineJVMType(allVars[i].second);
+		if (type[0]=='[') {
+			appendArrayCreation(allVars[i].second);
+			addPutFieldInstruction(className, allVars[i].first, type);
+		}
+	}
 
 	localsVariablesMap.clear();
 
@@ -308,7 +342,47 @@ void JasminVisitor::visit(syntax_tree::Variable *node) {
 }
 
 void JasminVisitor::visit(syntax_tree::IndexedVariable *node) {
+	syntax_tree::AbstractNode *expr = assignExpression;
+	assignExpression = NULL;
 
+	std::string jvmType = jvmTypeVisitor->determineJVMType(getTypeOfExpression(node->getVariable()));
+
+	if (jvmType[0] == '[') {
+		node->getVariable()->accept(this);
+
+		std::vector< syntax_tree::AbstractNode* > indexes = *(node->getExprList());
+
+		Type *currentType = getTypeOfExpression(node->getVariable());
+		int i;
+		for (i = 0; i < indexes.size()-1; i++) {
+			indexes[i]->accept(this);
+
+			std::pair< int, Type* > offsetType = jvmTypeVisitor->getOffsetTypeOfArrayDereferencing(currentType);
+
+			addInstruction("ldc " + intToStr(offsetType.first));
+			addInstruction("isub");
+			addInstruction("aaoad");
+		}
+		indexes[i]->accept(this);
+
+		std::pair< int, Type* > offsetType = jvmTypeVisitor->getOffsetTypeOfArrayDereferencing(currentType);
+
+		addInstruction("ldc " + intToStr(offsetType.first));
+		addInstruction("isub");
+
+		std::string ins = "";
+
+		std::string jvmPrefix = jvmTypeVisitor->getInstructionPrefixForType(offsetType.second);
+
+		if (expr != NULL) {
+			expr->accept(this);
+			ins = jvmPrefix + "astore";
+		} else {
+			ins = jvmPrefix + "aload";
+		}
+
+		addInstruction(ins);
+	}
 }
 
 void JasminVisitor::addCMPInstruction(std::string ins, int trueValue) {

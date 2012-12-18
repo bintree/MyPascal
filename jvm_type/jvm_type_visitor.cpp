@@ -2,6 +2,8 @@
 
 void JVMTypeVisitor::visit(Array* type) {
 	jvmTypeName = "[" + determineJVMType(type->getOfType());
+	offsetType = std::make_pair(type->getFrom(), type->getOfType());
+	arrayLength = type->getTo() - type->getFrom() + 1;
 }
 void JVMTypeVisitor::visit(HashMapType* type) {
 	jvmTypeName = "Ljava/util/HashMap;";
@@ -40,4 +42,13 @@ std::string JVMTypeVisitor::getInstructionPrefixForType(Type* type) {
 	} 
 
 	return "a";
+}
+
+std::pair< int, Type* > JVMTypeVisitor::getOffsetTypeOfArrayDereferencing(Type *arrayType) {
+	arrayType->accept(this);
+	return offsetType;
+}
+int JVMTypeVisitor::getLengthOfArrayType(Type* arrayType) {
+	arrayType->accept(this);
+	return arrayLength;
 }

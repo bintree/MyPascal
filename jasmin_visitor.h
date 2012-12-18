@@ -38,6 +38,8 @@ class JasminVisitor : public syntax_tree::Visitor {
 		void addPutFieldInstruction(std::string className, std::string fieldName, std::string type);
 		void addGetFieldInstruction(std::string className, std::string fieldName, std::string type);
 		
+		void appendArrayCreation(Type* arrayType);
+
 		int getNextLabelNumber();
 		int getLastLabelNumber();
 
