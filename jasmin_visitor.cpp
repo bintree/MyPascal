@@ -317,7 +317,25 @@ void JasminVisitor::visit(syntax_tree::ForStatement *node) {
 
 
 void JasminVisitor::visit(syntax_tree::IfStatement *node) { 	
+	node->getExpression()->accept(this);
+	addInstruction("iconst_0");
 
+	addInstruction("if_icmpeq ");
+	int ifIndex = instructions.size()-1;
+
+	node->getStatement()->accept(this);
+
+	instructions[ifIndex].first+=getLabelNameByNumber(getNextLabelNumber());
+	waitingForLabeledInstruction = true;
+	if (node->getElseExpression() != NULL) {
+		addInstruction("goto ");
+		waitingForLabeledInstruction = true;
+		int gotoIndex = instructions.size()-1;
+		node->getElseExpression()->accept(this);
+		
+		instructions[gotoIndex].first+=getLabelNameByNumber(getNextLabelNumber());
+		waitingForLabeledInstruction = true;
+	}
 }
 
 
