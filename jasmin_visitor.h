@@ -29,6 +29,7 @@ class JasminVisitor : public syntax_tree::Visitor {
 		syntax_tree::AbstractNode* assignExpression;
 		void clearInstructions();
 		void addInstruction(std::string instructionText);
+		void addCMPInstruction(std::string ins, int trueValue);
 		void addNewInstruction(std::string className);
 		void addInvokation(std::string invokationType, std::string className, std::string method, std::string argsTypes[], int argc, std::string returnType);
 		void addInvokeVirtualInstruction(std::string className, std::string method, std::string argsTypes[], int argc, std::string returnType);

@@ -311,9 +311,116 @@ void JasminVisitor::visit(syntax_tree::IndexedVariable *node) {
 
 }
 
-void JasminVisitor::visit(syntax_tree::UnaryOperator *node) { 
+void JasminVisitor::addCMPInstruction(std::string ins, int trueValue) {
+	addInstruction(ins + " " + getLabelNameByNumber(getNextLabelNumber()));
+
+	std::string trueStringValue = trueValue ? "0" : "1";
+
+	addInstruction("iconst_" + trueStringValue);
+
+	addInstruction("goto " + getLabelNameByNumber(getNextLabelNumber() + 1));
+	
+	waitingForLabeledInstruction = true;
+	trueStringValue = trueValue ? "1" : "0";
+	addInstruction("iconst_" + trueStringValue);
+	waitingForLabeledInstruction = true;
 }
-void JasminVisitor::visit(syntax_tree::BinaryOperator *node) { 
+
+void JasminVisitor::visit(syntax_tree::UnaryOperator *node) { 
+	std::string op = determineValue(node->getSign());
+
+	node->getSimpleExpression()->accept(this);
+
+	if (op == "not") {
+		addInstruction("iconst_1");
+		addInstruction("ixor");
+	} else if (op == "-") {
+		std::string prefix = jvmTypeVisitor->getInstructionPrefixForType(getTypeOfExpression(node->getSimpleExpression()));
+		addInstruction(prefix + "neg");
+	}
+}
+void JasminVisitor::visit(syntax_tree::BinaryOperator *node) {
+	std::string op = determineValue(node->getOper());
+
+	std::string jvmType = jvmTypeVisitor->determineJVMType(getTypeOfExpression(node->getSimpleExpression1()));
+
+	node->getSimpleExpression1()->accept(this);
+	node->getSimpleExpression2()->accept(this);
+
+	if (op == "<" || op == "<=" || op == "==" || op == ">=" || op == ">" || op == "!=") {
+		if (jvmType == "I") {
+			std::string opType = "";
+			if (op ==  "<") {
+				opType = "lt";
+			} else if (op == "<=") {
+				opType = "le";
+			} else if (op == "==") {
+				opType = "eq";
+			} else if (op == ">=") {
+				opType = "ge";
+			} else if (op == ">") {
+				opType = "gt";
+			} else if (op == "!=") {
+				opType = "ne";
+			}
+
+			addCMPInstruction("if_icmp" + opType, 1);
+		} else if (jvmType == "D") {
+			addInstruction("dcmpl");
+			int compareValue=0;
+            int trueValue=0;
+			if (op ==  "<") {
+				compareValue = -1; trueValue = 1;
+			} else if (op == "<=") {
+				compareValue = 1; trueValue = 0;
+			} else if (op == "==") {
+				compareValue = 0; trueValue = 1;
+			} else if (op == ">=") {
+				compareValue = -1; trueValue = 0;
+			} else if (op == ">") {
+				compareValue = 1; trueValue = 1;
+			} else if (op == "!=") {
+				compareValue = 0; trueValue = 0;
+			}
+			
+			std::string c = "1";
+			if (compareValue == 0) {
+				c="0";
+			}
+			if (compareValue == -1) {
+				c="m1";
+			}
+
+			addInstruction("iconst_" + c);
+			addCMPInstruction("if_icmpeq", trueValue);
+		}
+	} else {
+		std::string prefix = jvmTypeVisitor->getInstructionPrefixForType(getTypeOfExpression(node->getSimpleExpression1()));
+		
+		if (prefix != "") {
+			std::string opcode = "";
+			if (op == "||") {
+				opcode = "or";
+			} else if (op == "&&") {
+				opcode = "and";
+			} else if (op == "/" || op == "div") {
+				opcode = "div";
+			} else if (op == "-") {
+				opcode = "sub";
+			} else if (op == "mod") {
+				opcode = "rem";
+			} else if (op == "+") {
+				opcode = "add";
+			} else if (op == "*") {
+				opcode = "mul";
+			}
+
+			addInstruction(prefix + opcode);
+		} else {
+			std::string arg[] = {"Ljava/lang/String;"};
+			addInvokeVirtualInstruction("java.lang.String", "concat", arg, 1, arg[0]);
+		}
+	}
 }
 
 /*
