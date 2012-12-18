@@ -59,6 +59,10 @@ Type* SimpleType::getTypeAfterBinaryOperation(std::string op) {
 		return getTypeBySimpleTypeId(INTEGER_SIMPLE_TYPE);
 	}
 
+	if (op == "+" && id==STRING_SIMPLE_TYPE) {
+		return this;
+	}
+
 	if ((op == "+" || op == "-" || op == "*") && isNumeric) {
 		return this;
 	}
