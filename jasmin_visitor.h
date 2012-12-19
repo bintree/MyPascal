@@ -42,6 +42,10 @@ class JasminVisitor : public syntax_tree::Visitor {
 		void appendValueObjectWrapping(std::string jvmType);
 		bool appendHashMapCreation(std::string jvmType);
 
+		int getLastInstructionIndex();
+
+		void appendLabelToInstruction(int index, int labelNumber);
+
 		int getNextLabelNumber();
 		int getLastLabelNumber();
 

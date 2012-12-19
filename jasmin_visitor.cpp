@@ -307,12 +307,63 @@ void JasminVisitor::visit(syntax_tree::FunctionDesignator *node) {
 	methodInvokation(node->getIdent(), node->getActualParametrList());
 }
 
-void JasminVisitor::visit(syntax_tree::WhileStatement *node) {
+int JasminVisitor::getLastInstructionIndex() {
+	return instructions.size()-1;
+}
 
+void JasminVisitor::appendLabelToInstruction(int index, int labelNumber) {
+	instructions[index].first+=getLabelNameByNumber(labelNumber);
+}
+
+void JasminVisitor::visit(syntax_tree::WhileStatement *node) {
+	int startLabel = getNextLabelNumber();
+	waitingForLabeledInstruction = true;
+	
+	node->getWhileExpr()->accept(this);
+
+	addInstruction("iconst_0");
+	addInstruction("if_icmpeq ");
+	int conditionIndex = getLastInstructionIndex();
+
+	node->getWhileStatement()->accept(this);
+
+	addInstruction("goto " + getLabelNameByNumber(startLabel));
+
+	appendLabelToInstruction(conditionIndex, getNextLabelNumber());
+	waitingForLabeledInstruction = true;
 }
 
 void JasminVisitor::visit(syntax_tree::ForStatement *node) { 
+	syntax_tree::AssignmentStatement *begin = new syntax_tree::AssignmentStatement(node->getBeginPosition(), node->getVariable(), node->getExpression1(), node->getEndPosition());
 
+	begin->accept(this);
+
+	int labelStart = getNextLabelNumber();
+	waitingForLabeledInstruction = true;
+
+	syntax_tree::Terminal *opTerm = new syntax_tree::Terminal("<=", syntax_tree::OTHER, std::make_pair(0,0), std::make_pair(0,0));
+	syntax_tree::BinaryOperator *condition = new syntax_tree::BinaryOperator(node->getBeginPosition(), node->getVariable(), opTerm, node->getExpression2(), node->getEndPosition());
+
+	condition->accept(this);
+
+	addInstruction("iconst_0");
+	addInstruction("if_icmpeq ");
+	int conditionIndex = getLastInstructionIndex();
+
+	node->getStatement()->accept(this);
+
+	syntax_tree::Terminal *plusTerm = new syntax_tree::Terminal("+", syntax_tree::OTHER, std::make_pair(0,0), std::make_pair(0,0));
+	syntax_tree::Terminal *oneTerm = new syntax_tree::Terminal("1", syntax_tree::INTEGER_LITERAL, std::make_pair(0,0), std::make_pair(0,0));
+	syntax_tree::BinaryOperator* addOne = new syntax_tree::BinaryOperator(std::make_pair(0, 0), node->getVariable(), plusTerm, oneTerm, std::make_pair(0,0));
+
+	syntax_tree::AssignmentStatement *incrementStatement = new syntax_tree::AssignmentStatement(node->getBeginPosition(), node->getVariable(), addOne, node->getEndPosition());
+
+	incrementStatement->accept(this);
+
+	addInstruction("goto " + getLabelNameByNumber(labelStart));
+
+	appendLabelToInstruction(conditionIndex, getNextLabelNumber());
+	waitingForLabeledInstruction = true;
 }
 
 
@@ -321,19 +372,20 @@ void JasminVisitor::visit(syntax_tree::IfStatement *node) {
 	addInstruction("iconst_0");
 
 	addInstruction("if_icmpeq ");
-	int ifIndex = instructions.size()-1;
+	int ifIndex = getLastInstructionIndex();
 
 	node->getStatement()->accept(this);
 
-	instructions[ifIndex].first+=getLabelNameByNumber(getNextLabelNumber());
+	appendLabelToInstruction(ifIndex, getNextLabelNumber());
+	
 	waitingForLabeledInstruction = true;
 	if (node->getElseExpression() != NULL) {
 		addInstruction("goto ");
 		waitingForLabeledInstruction = true;
-		int gotoIndex = instructions.size()-1;
+		int gotoIndex = getLastInstructionIndex();
 		node->getElseExpression()->accept(this);
 		
-		instructions[gotoIndex].first+=getLabelNameByNumber(getNextLabelNumber());
+		appendLabelToInstruction(gotoIndex, getNextLabelNumber());
 		waitingForLabeledInstruction = true;
 	}
 }
