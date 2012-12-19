@@ -73,11 +73,7 @@ int main(int argc, char* argv[])
 			return 1;
 		}
 
-		global->print();
-
 		types = visitor.expressionTypes;
-
-		print_tree(root, "");
 
 		JasminVisitor jasminGenerator;
 
