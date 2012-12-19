@@ -40,6 +40,9 @@ std::string JVMTypeVisitor::getInstructionPrefixForType(Type* type) {
 	if (jvmType == "D") {
 		return "d";
 	} 
+	if (jvmType == "V") {
+		return "";
+	}
 
 	return "a";
 }
