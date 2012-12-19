@@ -13,15 +13,8 @@
 class Context {
 private:
 	Context* parentContext;
-	std::map< std::string, int >* functionsMap;
-	std::vector< std::string >* functionsNames;
-	std::vector< Type* >* funcReturnTypes;
-	std::vector< std::vector< Type* > >* functionsArgs;
-	std::vector< Context* >* functionsContexts;
-
-	std::vector< syntax_tree::AbstractNode* >* functionsStatements;
 	
-	std::map< std::string, int >* varsMap;
+	
 	std::vector< std::string >* varsNames;
 	std::vector< Type* >* varsTypes;
 
@@ -33,6 +26,13 @@ private:
 
 	bool addFunction(std::string name, Type *returnType, std::vector< Type* > &argsTypes, Context* funcContext, syntax_tree::AbstractNode* statement);
 public:
+	std::map< std::string, int >* varsMap;
+	std::map< std::string, int >* functionsMap;
+	std::vector< std::string >* functionsNames;
+	std::vector< Type* >* funcReturnTypes;
+	std::vector< std::vector< Type* > >* functionsArgs;
+	std::vector< Context* >* functionsContexts;
+	std::vector< syntax_tree::AbstractNode* >* functionsStatements;
 	Context();
 	Context(Context *_parent);
 
