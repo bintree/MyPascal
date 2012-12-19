@@ -142,6 +142,7 @@ void JasminVisitor::generateJasminCode(Context *global, syntax_tree::AbstractNod
 	this->out = &out;
 	this->expressionTypes = expressionTypes;
 	this->className = className;
+	this->global = global;
 	currentContext = global;
 	labelCounter = 0;
 	waitingForLabeledInstruction = false;
@@ -158,6 +159,77 @@ void JasminVisitor::generateJasminCode(Context *global, syntax_tree::AbstractNod
 
 	//отсюда мы будем читать
 	printLineToOStream(".field public static __input Ljava/util/Scanner;", out);
+
+	for (int i = 0; i < global->functionsNames->size(); i++) {
+		if (global->functionsStatements->at(i) == NULL)continue;
+		
+		char s[200];
+
+		std::string *argTypes = new std::string[global->functionsArgs->at(i).size()];
+
+		for (int j = 0; j < global->functionsArgs->at(i).size(); j++) {
+			argTypes[j] = jvmTypeVisitor->determineJVMType(
+				global->functionsArgs->at(i).at(j)
+			);
+		}
+
+		sprintf(s, ".method public static %s(%s)%s", 
+			global->functionsNames->at(i).c_str(), 
+			joinStrings(argTypes, global->functionsArgs->at(i).size()).c_str(), 
+			jvmTypeVisitor->determineJVMType(global->funcReturnTypes->at(i)).c_str()
+		);
+		printLineToOStream(s, out);
+
+		currentContext = global->functionsContexts->at(i);
+		std::vector< std::pair< std::string, Type* > > localVars = currentContext->getAllVariables();
+
+		clearInstructions();
+
+		int startLabel = getNextLabelNumber();
+		waitingForLabeledInstruction = true;
+		for (int j = global->functionsArgs->at(i).size(); j < localVars.size(); j++) {
+			
+			std::string type = jvmTypeVisitor->determineJVMType(localVars[j].second);
+			std::string opPrefix = jvmTypeVisitor->getInstructionPrefixForType(localVars[j].second);
+			int was = 0;
+			if (type[0]=='[') {
+				appendArrayCreation(localVars[j].second);
+				was = 1;
+			}
+
+			if (appendHashMapCreation(type)) {
+				addPutFieldInstruction(className, localVars[j].first, type);
+				was = 1;
+			}
+
+			if (was) {
+				addInstruction(opPrefix + "store " + intToStr(j));
+			}
+		}
+
+		global->functionsStatements->at(i)->accept(this);
+
+		std::string returnPrefix = jvmTypeVisitor->getInstructionPrefixForType(global->funcReturnTypes->at(i));
+
+		if (returnPrefix.size() > 0) {
+			addInstruction(returnPrefix + "load " + intToStr(currentContext->varsMap->find("result")->second));
+		}
+		int endLabel = getNextLabelNumber();
+		waitingForLabeledInstruction = true;
+		addInstruction(returnPrefix + "return");
+
+		printStackLimit(out);
+		printLocalLimit(localVars.size(), out);
+		
+		for (int j = 0; j < localVars.size(); j++) {
+			std::string localType = jvmTypeVisitor->determineJVMType(localVars[j].second);
+			printLocalDeclaration(localVars[j].first, j, localType, startLabel, endLabel, out);
+		}
+
+		printInstructions();
+	
+		printLineToOStream(".end method", out);
+	}
 	
 	printLineToOStream(".method public static main([Ljava/lang/String;)V", out);
 
@@ -257,9 +329,9 @@ void JasminVisitor::putExpressionsToStack(std::vector< syntax_tree::AbstractNode
 void JasminVisitor::methodInvokation(syntax_tree::AbstractNode *identNode, std::vector< syntax_tree::AbstractNode* >* argsExpressions) {
 	std::string name = determineValue(identNode);
 
-	int funcId = currentContext->getFunctionIdByName(name);
+	int funcId = global->getFunctionIdByName(name);
 
-	if (currentContext->getFunctionStatement(funcId) == NULL) {
+	if (global->getFunctionStatement(funcId) == NULL) {
 		//стандартные функции ввода/вывода
 
 		if (name.find("println") == 0) {
@@ -296,7 +368,17 @@ void JasminVisitor::methodInvokation(syntax_tree::AbstractNode *identNode, std::
 		return;
 	}
 	
+	putExpressionsToStack(argsExpressions);
 
+	std::string *args = new std::string[argsExpressions->size()];
+
+	for (int i = 0; i < argsExpressions->size(); i++) {
+		args[i] = jvmTypeVisitor->determineJVMType(getTypeOfExpression(argsExpressions->at(i)));
+	}
+
+	std::string retType = jvmTypeVisitor->determineJVMType(global->getReturnTypeOfFunction(name));
+
+	addInvokeStaticInstruction(className, name, args, argsExpressions->size(), retType);
 }
 
 void JasminVisitor::visit(syntax_tree::ProcedureStatement *node) {
@@ -409,14 +491,24 @@ void JasminVisitor::visit(syntax_tree::Variable *node) {
 
 	Type* varType = currentContext->getVariableType(name);
 
+	std::string localNumber = "-1";
+
+	if (isLocal) {
+		localNumber = intToStr(currentContext->varsMap->find(name)->second);
+	}
+
 	if (exprToAssingn != NULL) {
 		exprToAssingn->accept(this);
 		if (!isLocal) {
 			addPutFieldInstruction(className, name, jvmTypeVisitor->determineJVMType(varType));
+		} else {
+			addInstruction(jvmTypeVisitor->getInstructionPrefixForType(varType) + "store " + localNumber);
 		}
 	} else {
 		if (!isLocal) {
 			addGetFieldInstruction(className, name, jvmTypeVisitor->determineJVMType(varType));
+		} else {
+			addInstruction(jvmTypeVisitor->getInstructionPrefixForType(varType) + "load " + localNumber);
 		}
 	}
 }

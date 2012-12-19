@@ -11,7 +11,7 @@ const int DEFAULT_STACK_LIMIT = 100;
 
 class JasminVisitor : public syntax_tree::Visitor {
 	private:
-		Context* currentContext;
+		Context *currentContext, *global;
 		std::map< std::string, int > localsVariablesMap;
 		std::string className;
 		std::vector< std::pair< std::string, int > > instructions; 
