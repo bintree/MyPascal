@@ -5,7 +5,7 @@
 #include "context.h"
 class SemanticalVisitor : public syntax_tree::Visitor {
 	private:
-		Context *context;
+		Context *context, *global;
 		void addFunction(syntax_tree::AbstractNode* functionName_,std::vector<syntax_tree::AbstractNode*>* formalParametrList_,syntax_tree::AbstractNode* block_,syntax_tree::AbstractNode* typeIdent_);
 		void checkFunctionCall(syntax_tree::AbstractNode* functionName_,std::vector<syntax_tree::AbstractNode*>* params_);
 		Type* determineType(syntax_tree::AbstractNode*);

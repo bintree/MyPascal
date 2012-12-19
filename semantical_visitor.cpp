@@ -16,6 +16,7 @@ int convertToInt(std::string s) {
 SemanticalVisitor::SemanticalVisitor(Context *_context) 
 {
 	context = _context;
+	global = _context;
 }
 
 Type* SemanticalVisitor::determineType(syntax_tree::AbstractNode* node) {
@@ -223,10 +224,10 @@ void SemanticalVisitor::checkFunctionCall(syntax_tree::AbstractNode* functionNam
 		argsPos.push_back(params_->at(i)->getBeginPosition());
 	}
 
-	if (context->checkFunctionCall(name, argsTypes, functionName_->getBeginPosition(), argsPos)) {
+	if (global->checkFunctionCall(name, argsTypes, functionName_->getBeginPosition(), argsPos)) {
 	} 
 
-	currentExpressionType = context->getReturnTypeOfFunction(name);
+	currentExpressionType = global->getReturnTypeOfFunction(name);
 }
 
 void SemanticalVisitor::visit(syntax_tree::ProcedureStatement *node) {

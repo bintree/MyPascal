@@ -230,6 +230,8 @@ void JasminVisitor::generateJasminCode(Context *global, syntax_tree::AbstractNod
 	
 		printLineToOStream(".end method", out);
 	}
+
+	currentContext = global;
 	
 	printLineToOStream(".method public static main([Ljava/lang/String;)V", out);
 
@@ -462,6 +464,7 @@ void JasminVisitor::visit(syntax_tree::IfStatement *node) {
 	
 	waitingForLabeledInstruction = true;
 	if (node->getElseExpression() != NULL) {
+		waitingForLabeledInstruction = false;
 		addInstruction("goto ");
 		waitingForLabeledInstruction = true;
 		int gotoIndex = getLastInstructionIndex();
