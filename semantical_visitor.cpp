@@ -94,15 +94,6 @@ void SemanticalVisitor::addFunction(syntax_tree::AbstractNode* functionName_,std
 	Context* prev = context;
 	context = new Context(prev);
 
-	Type* returnType=NULL;
-
-	if (typeIdent_ == NULL) {
-		returnType = getTypeBySimpleTypeId(VOID_SIMPLE_TYPE);
-	} else {
-		returnType = determineType(typeIdent_);
-		context->addVariable("result", returnType);
-	}
-
 	ITERATE(it, formalParametrList_) {
 		(*it)->accept(this);
 	}
@@ -115,6 +106,15 @@ void SemanticalVisitor::addFunction(syntax_tree::AbstractNode* functionName_,std
 	}
 
 	block_->accept(this);
+
+	Type* returnType=NULL;
+
+	if (typeIdent_ == NULL) {
+		returnType = getTypeBySimpleTypeId(VOID_SIMPLE_TYPE);
+	} else {
+		returnType = determineType(typeIdent_);
+		context->addVariable("result", returnType);
+	}
 
 	prev->addFunction(funcName, returnType, argsTypes, context, currentBlockStatemenent, functionName_->getBeginPosition());
 	context = prev;
