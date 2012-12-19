@@ -141,8 +141,8 @@ FUNCTION ident_terminal COLON ident_terminal SEMICOLON block { $$=new syntax_tre
 ;
 
 formal_parameter_list :
-	{ $$=NEW_NODE_VECTOR; }
-| formal_parameter_section SEMICOLON formal_parameter_list { $3->push_back($1); $$=$3; }
+formal_parameter_section { $$=NEW_NODE_VECTOR; $$->push_back($1); }
+| formal_parameter_section SEMICOLON formal_parameter_list  { $3->push_back($1); $$=$3; }
 | error SEMICOLON { yyerrok; }
 ;
 
